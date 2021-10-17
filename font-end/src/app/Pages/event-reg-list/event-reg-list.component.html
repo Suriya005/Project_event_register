@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+      <div class="title">
+        <span class="header">เลือกกิจกรรที่ต้องการลงทะเบียน</span>
+      </div>
+      <div class="content" *ngFor="let items of this.eventList">
+        <button *ngIf="items.event_status ==='A'" class="items" (click)="testSubmit()">
+          <span class="header">{{items.event_name}} </span>
+          <span class="desc">{{items.event_descr}}</span>
+        </button>
+      </div>
+      <div class="backMenu">
+          <a href=""><i class="fas fa-chevron-circle-left"></i><span>กลับไปหน้าแรก</span></a>
+      </div>
+    </div>
+  </div>
+  

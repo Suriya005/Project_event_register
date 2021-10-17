@@ -1,0 +1,65 @@
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="formRegister">
+            <span class="header">แบบฟอร์มการลงทะเบียน</span>
+            <div class="formItems">
+                <label>รหัสนักศึกษา</label>
+                <input id="userId" type="text" formControlName="userId">
+            </div>
+            <div class="formItems">
+                <label>Password</label>
+                <input id="password" type="password" formControlName="password">
+            </div>
+            <div class="formItems">
+                <label>คำนำหน้า นาย/นางสาว/นาง</label>
+                <input style="width:6ch" id="titleName" type="text" formControlName="titleName">
+            </div>
+            <div class="formItems">
+                <label>ชื่อ</label>
+                <input id="fname" type="text" formControlName="fname" placeholder="ชื่อ">
+            </div>
+            <div class="formItems">
+                <label>นามสกุล</label>
+                <input id="lname" type="text" formControlName="lname" placeholder="นามสกุล">
+            </div>
+            <div class="formItems">
+                <span>วัน / เดือน / ปีเกิด</span>
+                <input formControlName="birthDay" type="date" id="date-object" style="width:14ch;" />
+            </div>
+            <div class="formItems">
+                <label>เพศ</label>
+                <div style="display:flex;  align-items:center; padding:.2em 2em;">
+                    <span style="padding-right: 1em;">ชาย</span>
+                    <input class="radio" type="radio" formControlName="sex" value="M">
+                </div>
+                <div style="display:flex; align-items:center; padding:.2em 2em;">
+                    <span style="padding-right: .6em;">หญิง</span>
+                    <input class="radio" type="radio" formControlName="sex" value="F">
+                </div>
+            </div>
+            <!-- <div class="formItems">
+                <span>คณะ</span>
+                <select formControlName="facultyForm">
+                    <option *ngFor="let items of faculty" [ngValue]="items.name">
+                        {{ items.name }}
+                    </option>
+                </select>
+            </div> -->
+            <div class="formItems">
+                <span>สาขา</span>
+                <select formControlName="department">
+                    <option *ngFor="let items of department" [ngValue]="items.value">
+                        {{ items.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="btnSubmit">
+
+                <button type="submit" [disabled]="!registerForm.valid">ยืนยัน</button>
+
+                <button type="submit">ยกเลิก</button>
+
+            </div>
+        </div>
+    </form>
+</div>

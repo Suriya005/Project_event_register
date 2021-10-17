@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 m-2 d-flex justify-content-center">
+            <h1>เพิ่มข้อสาขา</h1>
+        </div>
+        <div class="col-6">
+            <form [formGroup]="addMajor" (ngSubmit)="add()">
+                <div class="form-group">
+                    <label>สาขา</label>
+                    <input class="form-control" id="facultyName" type="text" formControlName="facultyName"
+                        placeholder="facultyName" />
+                </div>
+                <div class="form-group">
+                <select class="custom-select" formControlName="facultyName">
+                    <option *ngFor="let items of majorList" [ngValue]="items.faculty_id">
+                      {{ items.faculty_name }}
+                    </option>
+                  </select>
+                </div>
+                <button  type="submit" class="btn btn-primary">ยืนยัน</button>
+            </form>
+        </div>
+    </div>
+</div>

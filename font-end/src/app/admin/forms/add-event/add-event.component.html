@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 m-2 d-flex justify-content-center">
+        <h1>เพิ่มกิจกรรม</h1>
+      </div>
+      <!-- <div class="col-12">
+        <ckeditor data="<p>Hello, world!</p>"></ckeditor>
+      </div> -->
+      <div class="col-6">
+        <form [formGroup]="addEvent" (ngSubmit)="add()">
+          <div class="form-group">
+            <label>ตำแหน่งกิจกรรม</label>
+            <input class="form-control" id="location" type="text" formControlName="location" placeholder="location" />
+          </div>
+          <div class="form-group">
+            <label>ชื่อกิจกรรม</label>
+            <input class="form-control" id="eventName" type="text" formControlName="eventName" />
+          </div>
+          <div class="form-group">
+            <label>สถานะกิจกรรม</label>
+            <input class="form-control" style="width: 10ch" id="eventStatus" type="text" formControlName="eventStatus"
+              value="นาย" />
+          </div>
+          <div class="form-group">
+            <label>รายละเอียดกิจกรรม</label>
+            <ckeditor formControlName="eventDescription" id="eventDescription" data="<p>Hello, world!</p>"></ckeditor>
+          </div>
+          <div class="form-group">
+            <label>เริ่มกิจกรรม</label>
+            <input class="form-control"formControlName="startEvent" type="datetime-local" id="startEvent">
+          </div>
+          <div class="form-group">
+            <label>สิ้นสุดกิจกรรม</label>
+            <input class="form-control"formControlName="endEvent" type="datetime-local" id="endEvent">
+          </div>
+          <button class="btn btn-primary">ยืนยัน</button>
+        </form>
+      </div>
+    </div>
+  </div>

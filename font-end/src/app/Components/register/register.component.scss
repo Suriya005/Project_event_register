@@ -1,0 +1,124 @@
+@media only screen and (max-width: 600px) {
+  .container {
+    display: inline-block;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    box-sizing: border-box;
+    background: rgba(4, 178, 231, 0.9);
+
+    .formRegister {
+      display: flex;
+      flex-direction: column;
+      border-radius: 1rem;
+      margin: 1rem;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255);
+      box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.4);
+      span.header {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 2rem 0.5rem;
+        font-size: 1.7rem;
+      }
+      .formItems {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 0.3rem;
+        margin: 0.3rem 0;
+        label {
+          margin-right: 1rem;
+        }
+        span {
+            box-sizing: border-box;
+             margin-right: 1rem;
+             
+        }
+        input {
+          padding: 0.3rem 0rem 0.3rem 1rem;
+          outline: none;
+          border-radius: 2em;
+          border: none;
+          background: rgba(212, 209, 209, 0.5);
+          box-shadow: 0.1em 0.1em 0.3em rgba(0, 0, 0, 0.4);
+        }
+        select{
+          margin-right: 1rem;
+        }
+      } //formItems
+      .btnSubmit {
+          display: flex;
+          justify-content:center;
+          margin-top: 5rem;
+          margin-bottom: 1rem;
+          button{
+            margin-right: 1.5rem;
+            padding:.3rem;
+          }
+        }
+
+    }
+  }
+}
+@media only screen and (min-width: 600px) {
+  .container {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-weight: normal;
+    overflow: auto;
+    .formRegister {
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      margin: 1em;
+      background: rgba(172, 169, 169, 0.2);
+      .formItems {
+        margin: 0.5em;
+        font-size: 1.2em;
+
+        label {
+          margin: 0 0.5em;
+        }
+        input {
+          outline: none;
+          border-radius: 2em;
+          border: none;
+          box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.4);
+          padding: 0.3em 1em;
+          margin-right: 1.5em;
+          width: 30ch;
+          font-size: 1em;
+        }
+        .radio {
+          box-shadow: none !important;
+          border: 0px;
+          width: 1.5em;
+          height: 1.5em;
+        }
+      }
+      .btnSubmit {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        button {
+          border-radius: 2em;
+          font-size: 1.5em;
+          background: rgba(4, 178, 231, 0.9);
+          color: #fff;
+          outline: none;
+          border: none;
+          box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.4);
+          padding: 0.1em 1em;
+          margin: 1em;
+        }
+      }
+    }
+  }
+}
