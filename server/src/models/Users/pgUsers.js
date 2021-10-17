@@ -49,12 +49,11 @@ const createNewUser = async (doc = {}) => {
 };
 
 // ฟังก์ชั่นแก้ไข user
-const updateUser = async (doc= {})=> {
-const Doc = { ...doc };
+const updateUser = async (Doc)=> {
 console.log(Doc)
-await myData.query(
-  `UPDATE users_tb SET password='${Doc.password}', fname='${Doc.fname}',lname='${Doc.lname}',sex='${Doc.sex}',faculty='${Doc.facultyForm}',mejor='${Doc.department}', birthday='${Doc.birthDay}',title_name='${Doc.titleName}' WHERE user_id='${Doc.userId}';`
-);
+const sql = `UPDATE users_tb SET password='${Doc.password}', fname='${Doc.fname}',lname='${Doc.lname}',sex='${Doc.sex}', birthday='${Doc.birthDay}',title_name='${Doc.titleName}', user_status='${Doc.userStatus}', major_id=${Doc.major} WHERE user_id='${Doc.userId}';`
+await myData.query(sql);
+return { msg: "update success" };
 }
 
 // ฟังก์ชั่นลบ user

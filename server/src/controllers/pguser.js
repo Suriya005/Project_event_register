@@ -24,7 +24,8 @@ const postUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { body } = req;
+  console.log("contoroller -->", req.body)
+  const {body} = req.body;
   const result = await userModels.updateUser(body);
   res.send(result);
 };

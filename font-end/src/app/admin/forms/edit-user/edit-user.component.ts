@@ -46,6 +46,7 @@ export class EditUserComponent implements OnInit {
     titleName: new FormControl(''),
     fname: new FormControl(''),
     lname: new FormControl(''),
+    userStatus: new FormControl(''),
     birthDay: new FormControl(new Date()),
     sex: new FormControl(''),
     major: new FormControl(''),
@@ -80,7 +81,7 @@ export class EditUserComponent implements OnInit {
           timer: 2000,
         });
         })
-        window.location.reload();
+        this.changeSearch()
       }
     });
     
@@ -105,16 +106,39 @@ export class EditUserComponent implements OnInit {
     try {
     this.loginService.registerUser(this.registerForm.value).then((res:any)=>{
       console.log(res);
-      this.clearRegisterForm()
+      this.clearForm()
       Swal.fire({
         title: 'เพิ่มสำเร็จ!',
+        text: res.msg,
         icon: 'success',
-        timer: 2000,
+        timer: 1500,
       });
+      setTimeout(()=>{
+        this.changeSearch()
+      },2000)
     })
     } catch (error) {
       console.log("register fail")
     }
+  }
+
+  editUser(){
+    try {
+      this.loginService.updateUser(this.editForm.value).then((res:any)=>{
+        this.clearForm()
+        Swal.fire({
+          title: 'แก้ไขสำเร็จ!',
+          text: res.msg,
+          icon: 'success',
+          timer: 1500,
+        });
+        setTimeout(()=>{
+          this.changeSearch()
+        },2000)
+      })
+      } catch (error) {
+        console.log("register fail")
+      }
   }
 
   editModal(tmp:any){
@@ -124,12 +148,13 @@ export class EditUserComponent implements OnInit {
     this.editForm.controls['titleName'].setValue(tmp.title_name);
     this.editForm.controls['fname'].setValue(tmp.fname);
     this.editForm.controls['lname'].setValue(tmp.lname);
+    this.editForm.controls['userStatus'].setValue(tmp.user_status);
     this.editForm.controls['birthDay'].setValue(tmp.birthday);
     this.editForm.controls['sex'].setValue(tmp.sex);
     this.editForm.controls['major'].setValue(tmp.major_id);
   }
 
-  clearRegisterForm(){
+  clearForm(){
     this.registerForm.controls['userId'].setValue('');
     this.registerForm.controls['password'].setValue('');
     this.registerForm.controls['titleName'].setValue('');

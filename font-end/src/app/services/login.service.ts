@@ -40,6 +40,11 @@ export class LoginService {
       body: data
    }).toPromise();
   }
+  updateUser(data: any) {
+    return this.http.patch(environment.serverUrl + `/users`, {
+      body: data
+   }).toPromise();
+  }
 
   verifyToken(token:any){
     // console.log(token)

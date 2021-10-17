@@ -1,11 +1,10 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12 m-2">
             <h1>แก้ไขข้อมูลผู้ใช้</h1>
             <p>{{this.searchData}}</p>
         </div>
         <div class="col-12">
-            <!-- <form class="form-inline d-flex justify-content-end"> -->
             <div class="input-group input-group-md">
                 <input [(ngModel)]="searchData" (keyup)="changeSearch()" id="searchData" name="searchData"
                     placeholder="" class="form-control form-control-navbar" type="search" placeholder="Search"
@@ -16,7 +15,6 @@
                     </button>
                 </div>
             </div>
-            <!-- </form> -->
         </div>
         <div class="col-12 d-flex justify-content-center">
             <table class="table" border="1px solid #000">
@@ -24,8 +22,8 @@
                     <tr align="center">
                         <th>รหัสนักศึกษา</th>
                         <th>คำนำหน้า</th>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
+                        <th width="10%">ชื่อ</th>
+                        <th width="10%">นามสกุล</th>
                         <th>สถานะ</th>
                         <th>ว/ด/ป</th>
                         <th>เพศ</th>
@@ -43,7 +41,7 @@
                         <td>{{item.lname}}</td>
                         <td>{{item.user_status}}</td>
                         <td>{{item.birthday | date:'dd/MM/yyyy'}}</td>
-                        <td>{{(item.sex== 'M')?'ชาย':'หญิง'}}</td>
+                        <td>{{item.sex}}</td>
                         <td>{{item.major_name}}</td>
                         <td>{{item.faculty_name}}</td>
                         <td><button class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="editModal(item)">แก้ไข</button></td>
@@ -170,6 +168,11 @@
                                         placeholder="นามสกุล" />
                                 </div>
                                 <div class="form-group">
+                                    <label>สภานะ</label>
+                                    <input class="form-control" id="userStatus" type="text" formControlName="userStatus"
+                                        placeholder="สถานะ" />
+                                </div>
+                                <div class="form-group">
                                     <label>วัน / เดือน / ปีเกิด</label>
                                     <input class="form-control" formControlName="birthDay" type="date" id="date-object"
                                         style="width: 20ch" />
@@ -198,7 +201,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        <button  (click)="register()" type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                        <button  (click)="editUser()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>
