@@ -36,9 +36,8 @@ export class LoginService {
   }
 
   deleteUser(data: any) {
-    return this.http.delete(environment.serverUrl + `/users`, {
-      body: data
-   }).toPromise();
+    console.log(data)
+    return this.http.delete(environment.serverUrl + `/users?event=${data}`).toPromise();
   }
   updateUser(data: any) {
     return this.http.patch(environment.serverUrl + `/users`, {
@@ -47,7 +46,6 @@ export class LoginService {
   }
 
   verifyToken(token:any){
-    // console.log(token)
     return this.http.post(environment.serverUrl + `/verify_token`,token).toPromise();
   };
 }

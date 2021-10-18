@@ -8,6 +8,7 @@ import { AddFacultyComponent } from './forms/add-faculty/add-faculty.component';
 import { AddMajorComponent } from './forms/add-major/add-major.component';
 import { AddUserComponent } from './forms/add-user/add-user.component';
 import { EditUserComponent } from './forms/edit-user/edit-user.component';
+import { EditEventComponent } from './forms/edit-event/edit-event.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'add_major', component: AddMajorComponent },
       { path: 'add_question', component: AddQuestionComponent },
       { path: 'edit_user', component: EditUserComponent },
+      { path: 'edit_event', component: EditEventComponent },
     ],
   },
 ];

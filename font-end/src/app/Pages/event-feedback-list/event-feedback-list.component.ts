@@ -10,7 +10,7 @@ export class EventFeedbackListComponent implements OnInit {
   constructor(private eventService: EventService) {}
   eventList: any;
   ngOnInit(): void {
-    this.eventService.getEventList().then((result: any) => {
+    this.eventService.getEvent().then((result: any) => {
       this.eventList = result;
       console.log(result);
     });

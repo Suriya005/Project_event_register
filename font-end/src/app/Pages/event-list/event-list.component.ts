@@ -13,7 +13,7 @@ export class EventListComponent implements OnInit {
     private _router:Router) {}
   eventList: any;
   ngOnInit(): void {
-    this.eventService.getEventList().then((result: any) => {
+    this.eventService.getEvent().then((result: any) => {
       this.eventList = result;
       console.log(result);
     });

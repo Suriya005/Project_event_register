@@ -13,7 +13,33 @@ const insertRegisterEvent = async (doc = {}) => {
 };
 
 const getEventList = async () => {
-  const sql = "SELECT * FROM event_tb";
+  const sql = "SELECT * from event_tb inner join location_tb on event_tb.location_id = location_tb.location_id ORDER BY event_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const addEvent = async (data) => {
+  const sql = `INSERT INTO event_tb (event_id, location_id, event_name, event_status, event_descr, event_start, event_end) VALUES (default, ${data.location_id}, '${data.event_name}', '${data.event_status}', '${data.event_descr}', '${data.event_start}', '${data.event_end}');`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const updateEvent = async (data) => {
+  const sql = `UPDATE event_tb
+	SET event_id=${data.event_id}, location_id=${data.location_id}, event_name='${data.event_name}', event_status='${data.event_status}', event_descr='${data.event_descr}', event_start='${data.event_start}', event_end='${data.event_end}'WHERE event_id=${data.event_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteEvent = async (data) => {
+  const sql = `DELETE FROM event_tb
+	WHERE event_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const getLocation = async () => {
+  const sql = "SELECT * from location_tb ORDER BY location_id ASC";
   const result = await myData.query(sql);
   return result.rows;
 };
@@ -45,5 +71,9 @@ module.exports = {
   getEventList,
   getMajor,
   getFaculty,
-  insertFaculty
+  insertFaculty,
+  updateEvent,
+  deleteEvent,
+  addEvent,
+  getLocation
 };

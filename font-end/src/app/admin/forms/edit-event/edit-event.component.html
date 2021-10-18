@@ -1,1 +1,150 @@
-<p>edit-event works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-2">
+            <h1>แก้ไขข้อมูลผู้ใช้</h1>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <table class="table" border="1px solid #000">
+                <thead class="thead-inverse">
+                    <tr align="center">
+                        <th>รหัสกิจกรรม</th>
+                        <th>ชื่อกิจกรรม</th>
+                        <th>รหัสตำแหน่ง</th>
+                        <th>ชื่อตำแหน่ง</th>
+                        <th>สถานะกิจกรรม</th>
+                        <th>รายละเอียดกิจกรรม</th>
+                        <th>เริ่มกิจกรรม</th>
+                        <th>สิ้นสุดกิจกรรม</th>
+                        <th>แก้ไข</th>
+                        <th>ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of eventData">
+                        <td>{{item.event_id}}</td>
+                        <td>{{item.event_name}}</td>
+                        <td>{{item.location_id}}</td>
+                        <td>{{item.location_name}}</td>
+                        <td>{{item.event_status}}</td>
+                        <td>{{item.event_descr}}</td>
+                        <td>{{item.event_start}}</td>
+                        <td>{{item.event_end}}</td>
+                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal" data-target="#editModal" >แก้ไข</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteEvent(item.event_id)">ลบ</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลกิจกรรม</button>
+
+        <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มข้อมูลกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="addEventForm">
+                                <div class="form-group">
+                                    <label>ตำแหน่งกิจกรรม</label>
+                                    <input class="form-control" id="location_id" type="text" formControlName="location_id" placeholder="location" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>สาขา</label>
+                                    <select class="custom-select" formControlName="event_name">
+                                        <option *ngFor="let items of locationData" [ngValue]="items.location_id">
+                                            {{ items.location_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                  <div class="form-group">
+                                    <label>สถานะกิจกรรม</label>
+                                    <input class="form-control" style="width: 10ch" id="event_status" type="text" formControlName="event_status"
+                                      value="นาย" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>รายละเอียดกิจกรรม</label>
+                                    <ckeditor formControlName="event_descr" id="event_descr" data="<p>Hello, world!</p>"></ckeditor>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>เริ่มกิจกรรม</label>
+                                    <input class="form-control"formControlName="event_start" type="datetime-local" id="event_start">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>สิ้นสุดกิจกรรม</label>
+                                    <input class="form-control"formControlName="event_end" type="datetime-local" id="event_end">
+                                  </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button  (click)="addEvent()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="addEventForm">
+                                <div class="form-group">
+                                    <label>ตำแหน่งกิจกรรม</label>
+                                    <input class="form-control" id="location_id" type="text" formControlName="location_id" placeholder="location" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>สาขา</label>
+                                    <select class="custom-select" formControlName="event_name">
+                                        <option *ngFor="let items of locationData" [ngValue]="items.location_id">
+                                            {{ items.location_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                  <div class="form-group">
+                                    <label>สถานะกิจกรรม</label>
+                                    <input class="form-control" style="width: 10ch" id="event_status" type="text" formControlName="event_status"
+                                      value="นาย" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>รายละเอียดกิจกรรม</label>
+                                    <ckeditor formControlName="event_descr" id="event_descr" data="<p>Hello, world!</p>"></ckeditor>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>เริ่มกิจกรรม</label>
+                                    <input class="form-control"formControlName="event_start" type="datetime-local" id="event_start">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>สิ้นสุดกิจกรรม</label>
+                                    <input class="form-control"formControlName="event_end" type="datetime-local" id="event_end">
+                                  </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button  (click)="addEvent()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

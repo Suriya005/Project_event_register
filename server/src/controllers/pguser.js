@@ -43,6 +43,7 @@ const postUserLogin = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  console.log(req.body)
   const userId = req.body;
   console.log(userId)
   const result = await userModels.deleteUser(userId);
