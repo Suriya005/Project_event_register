@@ -53,12 +53,12 @@
                         <div class="col-12 m-auto">
                             <form [formGroup]="addEventForm">
                                 <div class="form-group">
-                                    <label>ตำแหน่งกิจกรรม</label>
-                                    <input class="form-control" id="location_id" type="text" formControlName="location_id" placeholder="location" />
+                                    <label>ชื่อกิจกรรม</label>
+                                    <input class="form-control" id="event_name" type="text" formControlName="event_name" placeholder="" />
                                   </div>
                                   <div class="form-group">
-                                    <label>สาขา</label>
-                                    <select class="custom-select" formControlName="event_name">
+                                    <label>ตำแหน่งกิจกรรม</label>
+                                    <select class="custom-select" formControlName="location_id">
                                         <option *ngFor="let items of locationData" [ngValue]="items.location_id">
                                             {{ items.location_name }}
                                         </option>
@@ -105,14 +105,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-12 m-auto">
-                            <form [formGroup]="addEventForm">
+                            <form [formGroup]="editEventForm">
                                 <div class="form-group">
-                                    <label>ตำแหน่งกิจกรรม</label>
-                                    <input class="form-control" id="location_id" type="text" formControlName="location_id" placeholder="location" />
+                                    <label>ชื่อกิจกรรม</label>
+                                    <input class="form-control" id="event_name" type="text" formControlName="event_name" placeholder="" />
                                   </div>
                                   <div class="form-group">
-                                    <label>สาขา</label>
-                                    <select class="custom-select" formControlName="event_name">
+                                    <label>ตำแหน่งกิจกรรม</label>
+                                    <select class="custom-select" formControlName="location_id">
                                         <option *ngFor="let items of locationData" [ngValue]="items.location_id">
                                             {{ items.location_name }}
                                         </option>
@@ -125,7 +125,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label>รายละเอียดกิจกรรม</label>
-                                    <ckeditor formControlName="event_descr" id="event_descr" data="<p>Hello, world!</p>"></ckeditor>
+                                    <ckeditor formControlName="event_descr" style="overflow: hidden;" id="event_descr" data="<p>Hello, world!</p>"></ckeditor>
                                   </div>
                                   <div class="form-group">
                                     <label>เริ่มกิจกรรม</label>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        <button  (click)="addEvent()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                        <button  (click)="editEvent()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>

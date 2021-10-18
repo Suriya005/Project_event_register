@@ -20,6 +20,16 @@ export class EditEventComponent implements OnInit {
     event_end: new FormControl(''),
   })
 
+  editEventForm = new FormGroup({
+    event_id: new FormControl(''),
+    location_id: new FormControl(''),
+    event_name: new FormControl(''),
+    event_status: new FormControl(''),
+    event_descr: new FormControl(''),
+    event_start: new FormControl(''),
+    event_end: new FormControl(''),
+  })
+
   eventData: any;
   locationData: any;
 
@@ -30,21 +40,46 @@ export class EditEventComponent implements OnInit {
     })
   }
 
+  editModal(data: any) {
+    this.editEventForm.controls['event_id'].setValue(data.event_id);
+    this.editEventForm.controls['location_id'].setValue(data.location_id);
+    this.editEventForm.controls['event_name'].setValue(data.event_name);
+    this.editEventForm.controls['event_status'].setValue(data.event_status);
+    this.editEventForm.controls['event_descr'].setValue(data.event_descr);
+    this.editEventForm.controls['event_start'].setValue(data.event_start);
+    this.editEventForm.controls['event_end'].setValue(data.event_end);
+  }
+
   getEvent() {
     this.eventService.getEvent().then((res: any) => {
       this.eventData = res;
-      console.log(res);
     });
   }
 
   addEvent() {
-    console.log(this.addEventForm.value);
+    
     this.eventService.postEvent(this.addEventForm.value).then((res: any) => {
-      console.log(res)
+      Swal.fire({
+        title: 'ลบสำเร็จ!',
+        icon: 'success',
+        timer: 2000,
+      });
+      window.location.reload();
     })
   }
 
-  editEvent() {}
+  editEvent() {
+    this.eventService.editEvent(this.editEventForm.value).then((res: any) => {
+      Swal.fire({
+        title: 'ลบสำเร็จ!',
+        icon: 'success',
+        timer: 2000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      },2000)
+    })
+  }
 
   deleteEvent(data: any) {
     Swal.fire({
@@ -59,7 +94,6 @@ export class EditEventComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.eventService.deleteEvent(data).then((res: any) => {
-          console.log(res);
           Swal.fire({
             title: 'ลบสำเร็จ!',
             icon: 'success',
@@ -71,7 +105,4 @@ export class EditEventComponent implements OnInit {
     });
   }
 
-  editModal(data: any) {
-
-  }
 }

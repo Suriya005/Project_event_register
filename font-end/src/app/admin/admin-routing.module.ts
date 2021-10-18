@@ -9,6 +9,12 @@ import { AddMajorComponent } from './forms/add-major/add-major.component';
 import { AddUserComponent } from './forms/add-user/add-user.component';
 import { EditUserComponent } from './forms/edit-user/edit-user.component';
 import { EditEventComponent } from './forms/edit-event/edit-event.component';
+import { EditAnswerComponent } from './forms/edit-answer/edit-answer.component';
+import { EditFacultyComponent } from './forms/edit-faculty/edit-faculty.component';
+import { EditMajorComponent } from './forms/edit-major/edit-major.component';
+import { EditLocationComponent } from './forms/edit-location/edit-location.component';
+import { EditQuestionComponent } from './forms/edit-question/edit-question.component';
+import { EditRegEventComponent } from './forms/edit-reg-event/edit-reg-event.component';
 
 const routes: Routes = [
   {
@@ -23,6 +29,12 @@ const routes: Routes = [
       { path: 'add_question', component: AddQuestionComponent },
       { path: 'edit_user', component: EditUserComponent },
       { path: 'edit_event', component: EditEventComponent },
+      { path: 'edit_answer', component: EditAnswerComponent },
+      { path: 'edit_faculty', component: EditFacultyComponent },
+      { path: 'edit_major', component: EditMajorComponent },
+      { path: 'edit_location', component: EditLocationComponent },
+      { path: 'edit_question', component: EditQuestionComponent },
+      { path: 'edit_reg_event', component: EditRegEventComponent },
     ],
   },
 ];

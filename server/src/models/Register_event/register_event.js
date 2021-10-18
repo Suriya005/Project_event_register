@@ -25,8 +25,7 @@ const addEvent = async (data) => {
 };
 
 const updateEvent = async (data) => {
-  const sql = `UPDATE event_tb
-	SET event_id=${data.event_id}, location_id=${data.location_id}, event_name='${data.event_name}', event_status='${data.event_status}', event_descr='${data.event_descr}', event_start='${data.event_start}', event_end='${data.event_end}'WHERE event_id=${data.event_id};`;
+  const sql = `UPDATE event_tb SET location_id=${data.location_id}, event_name='${data.event_name}', event_status='${data.event_status}', event_descr='${data.event_descr}', event_start='${data.event_start}', event_end='${data.event_end}'WHERE event_id=${data.event_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
