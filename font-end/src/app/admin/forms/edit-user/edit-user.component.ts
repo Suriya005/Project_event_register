@@ -41,7 +41,7 @@ export class EditUserComponent implements OnInit {
   });
 
   editForm = new FormGroup({
-    userId: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    userId: new FormControl(''),
     password: new FormControl(''),
     titleName: new FormControl(''),
     fname: new FormControl(''),
