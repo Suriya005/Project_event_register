@@ -5,14 +5,16 @@
         </div>
 
         <div class="col m-2">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลกิจกรรม</button>
+            <button type="button" class="btn btn-success" data-toggle="modal"
+                data-target="#addModal">เพิ่มข้อมูลกิจกรรม</button>
         </div>
 
         <div class="col-12 d-flex justify-content-center">
             <table class="table" border="1px solid #000">
                 <thead class="thead-inverse">
                     <tr align="center">
-                        <th>รหัสคณะ</th>
+                        <th>รหัสสาขา</th>
+                        <th>ชื่อสาขา</th>
                         <th>ชื่อคณะ</th>
                         <th>แก้ไข</th>
                         <th>ลบ</th>
@@ -22,8 +24,10 @@
                     <tr *ngFor="let item of majorData">
                         <td>{{item.major_id}}</td>
                         <td>{{item.major_name}}</td>
-                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal" data-target="#editModal" >แก้ไข</button></td>
-                        <td><button class="btn btn-danger" (click)="deleteMajor(item.faculty_id)">ลบ</button></td>
+                        <td>{{item.faculty_name}}</td>
+                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal"
+                                data-target="#editModal">แก้ไข</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteMajor(item.major_id)">ลบ</button></td>
                     </tr>
 
                 </tbody>
@@ -31,8 +35,8 @@
         </div>
 
 
-        <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-            aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -44,27 +48,37 @@
                     <div class="modal-body">
                         <div class="col-12 m-auto">
                             <form [formGroup]="addMajorForm">
-                                  <div class="form-group">
+                                <div class="form-group">
+                                    <label>ชื่อสาขา</label>
+                                    <input class="form-control" formControlName="major_name" type="text"
+                                        id="major_name">
+                                </div>
+                                <div class="form-group">
                                     <label>ชื่อคณะ</label>
-                                    <input class="form-control"formControlName="faculty_name" type="text" id="faculty_name">
-                                  </div>
+                                    <select class="custom-select" formControlName="faculty_id">
+                                        <option *ngFor="let items of facultyData" [ngValue]="items.faculty_id">
+                                            {{ items.faculty_name }}
+                                        </option>
+                                    </select>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        <button  (click)="addMajor()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                        <button (click)="addMajor()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-            aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลคณะ</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลสาขา</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -72,18 +86,28 @@
                     <div class="modal-body">
                         <div class="col-12 m-auto">
                             <form [formGroup]="editMajorForm">
-                                  <div class="form-group">
-                                    <label>รหัสคณะ</label>
-                                    <input class="form-control"formControlName="faculty_id" type="text" id="faculty_id">
+                                <div class="form-group">
+                                    <label>รหัสสาขา</label>
+                                    <input class="form-control" formControlName="major_id" type="text" id="major_id">
+                                    <label>ชื่อสาขา</label>
+                                    <input class="form-control" formControlName="major_name" type="text"
+                                        id="major_name">
+                                </div>
+                                <div class="form-group">
                                     <label>ชื่อคณะ</label>
-                                    <input class="form-control"formControlName="faculty_name" type="text" id="faculty_name">
-                                  </div>
+                                    <select class="custom-select" formControlName="faculty_id">
+                                        <option *ngFor="let items of facultyData" [ngValue]="items.faculty_id">
+                                            {{ items.faculty_name }}
+                                        </option>
+                                    </select>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        <button  (click)="editMajor()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                        <button (click)="editMajor()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>

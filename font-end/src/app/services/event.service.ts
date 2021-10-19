@@ -54,15 +54,107 @@ export class EventService {
     .toPromise();
   }
 
-  // postFaculy(data:any){
-  //   return this.http.post(environment.serverUrl + `/post/faculty`,data)
-  //   .toPromise();
-  // }
+  postMajor(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/major`,data).toPromise();
+  }
 
+  editMajor(data:any){
+    return this.http.patch(environment.serverUrl + `/major`,data).toPromise();
+  }
+
+  deleteMajor(data:any){
+    return this.http.delete(environment.serverUrl + `/major`, {
+      body: data
+   }).toPromise();
+  }
+
+  // -----------Location------------------
   getLocation(){
     return this.http.get(environment.serverUrl + `/location`)
     .toPromise();
   }
+
+  postLocation(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/location`,data).toPromise();
+  }
+
+  editLocation(data:any){
+    return this.http.patch(environment.serverUrl + `/location`,data).toPromise();
+  }
+
+  deleteLocation(data:any){
+    return this.http.delete(environment.serverUrl + `/location`, {
+      body: data
+   }).toPromise();
+  }
+
+  // -----------Question------------------
+  getQuestion(){
+    return this.http.get(environment.serverUrl + `/question`)
+    .toPromise();
+  }
+
+  postQuestion(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/question`,data).toPromise();
+  }
+
+  editQuestion(data:any){
+    return this.http.patch(environment.serverUrl + `/question`,data).toPromise();
+  }
+
+  deleteQuestion(data:any){
+    return this.http.delete(environment.serverUrl + `/question`, {
+      body: data
+   }).toPromise();
+  }
+
+  // -----------Answer------------------
+  getAnswer(){
+    return this.http.get(environment.serverUrl + `/answer`)
+    .toPromise();
+  }
+
+  postAnswer(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/answer`,data).toPromise();
+  }
+
+  editAnswer(data:any){
+    return this.http.patch(environment.serverUrl + `/answer`,data).toPromise();
+  }
+
+  deleteAnswer(data:any){
+    return this.http.delete(environment.serverUrl + `/answer`, {
+      body: data
+   }).toPromise();
+  }
+
+  // -----------RegEvent------------------
+  getRegEvent(){
+    return this.http.get(environment.serverUrl + `/reg_event`)
+    .toPromise();
+  }
+
+  postRegEvent(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/reg_event`,data).toPromise();
+  }
+
+  editRegEvent(data:any){
+    return this.http.patch(environment.serverUrl + `/reg_event`,data).toPromise();
+  }
+
+  deleteRegEvent(data:any){
+    return this.http.delete(environment.serverUrl + `/reg_event`, {
+      body: data
+   }).toPromise();
+  }
+
+
+  
 
 
 }

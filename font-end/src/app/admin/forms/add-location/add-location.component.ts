@@ -34,12 +34,6 @@ export class AddLocationComponent implements OnInit {
           lat: position.coords.latitude,
         },
       });
-
-      // let marker = new longdo.Marker({
-      //   lon: this.longitudeOn,
-      //   lat: this.latitudeOn,
-      // });
-      // map.Overlays.add(marker);
     });
   }
 

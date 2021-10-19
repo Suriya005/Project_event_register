@@ -67,20 +67,21 @@ const deleteFaculty = async (data) => {
 
 // Major
 const getMajor = async () => {
-  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const sql = "SELECT * FROM major_tb inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id ORDER BY major_id ASC";
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const postMajor = async (data) => {
-  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  console.log("models--->",data);
+  const sql = `INSERT INTO major_tb(major_id, major_name, faculty_id) VALUES (default, '${data.major_name}', ${data.faculty_id});`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateMajor = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}', faculty_id=${data.faculty_id} WHERE major_id=${data.major_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
@@ -100,7 +101,8 @@ const getLocation = async () => {
 };
 
 const postLocation = async (data) => {
-  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  console.log('----->',data);
+  const sql = `INSERT INTO location_tb(location_id, location_name, latitude, longitude) VALUES (default, '${data.location_name}', ${data.latitude}, ${data.longitude});`
   await myData.query(sql);
   return { msg: "insert success" };
 };

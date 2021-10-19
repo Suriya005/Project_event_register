@@ -1,1 +1,146 @@
-<p>edit-location works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-2">
+            <h1>แก้ไขข้อมูลตำแหน่งกิจกรรม</h1>
+        </div>
+
+        <div class="col m-2">
+            <button type="button" class="btn btn-success" data-toggle="modal"
+                data-target="#addModal">เพิ่มข้อมูลตำแหน่งกิจกรรม</button>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <table class="table" border="1px solid #000">
+                <thead class="thead-inverse">
+                    <tr align="center">
+                        <th>รหัสตำแหน่ง</th>
+                        <th>ชื่อตำแหน่งกิจกรรม</th>
+                        <th>เส้นละติจูด</th>
+                        <th>เส้นลองจิจูด</th>
+                        <th>แก้ไข</th>
+                        <th>ลบ</th>
+                        <th>เช็คตำแหน่ง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of locationData">
+                        <td>{{item.location_id}}</td>
+                        <td>{{item.location_name}}</td>
+                        <td>{{item.latitude}}</td>
+                        <td>{{item.longitude}}</td>
+                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal"
+                                data-target="#editModal">แก้ไข</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteLocation(item.location_id)">ลบ</button></td>
+                        <td><button class="btn btn-success" (click)="checkLocation(item)" data-toggle="modal"
+                            data-target="#checkModal">เช็ค</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="modal fade bd-example-modal-xl" id="addModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มข้อมูลตำแหน่งกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map" class="col-12 m-auto" style="height:50vh"></div>
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="addLocationForm">
+                                <div class="form-group">
+                                    <label>ชื่อตำแหน่งกิจกรรม</label>
+                                    <input class="form-control" formControlName="location_name" type="text"
+                                        id="location_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>เส้นละติจูด</label>
+                                    <input class="form-control" formControlName="latitude" type="text"
+                                        id="latitude">
+                                </div>
+                                <div class="form-group">
+                                    <label>เส้นลองจิจูด</label>
+                                    <input class="form-control" formControlName="longitude" type="text"
+                                        id="longitude">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button (click)="addLocation()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลตำแหน่งกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map2" class="col-12 m-auto" style="height:50vh"></div>
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="editLocationForm">
+                                <div class="form-group">
+                                    <label>ชื่อตำแหน่งกิจกรรม</label>
+                                    <input class="form-control" formControlName="location_name" type="text"
+                                        id="location_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>เส้นละติจูด</label>
+                                    <input class="form-control" formControlName="latitude" type="text"
+                                        id="latitude">
+                                </div>
+                                <div class="form-group">
+                                    <label>เส้นลองจิจูด</label>
+                                    <input class="form-control" formControlName="longitude" type="text"
+                                        id="longitude">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button (click)="editLocation()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="checkModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">เช็คตำแหน่งกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map3" class="col-12 m-auto" style="height:70vh"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="reMap()" type="button" class="btn btn-success" data-dismiss="modal">ตกลง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
