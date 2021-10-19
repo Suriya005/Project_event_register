@@ -1,1 +1,93 @@
-<p>edit-faculty works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-2">
+            <h1>แก้ไขข้อมูลคณะ</h1>
+        </div>
+
+        <div class="col m-2">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลกิจกรรม</button>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <table class="table" border="1px solid #000">
+                <thead class="thead-inverse">
+                    <tr align="center">
+                        <th>รหัสคณะ</th>
+                        <th>ชื่อคณะ</th>
+                        <th>แก้ไข</th>
+                        <th>ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of facultyData">
+                        <td>{{item.faculty_id}}</td>
+                        <td>{{item.faculty_name}}</td>
+                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal" data-target="#editModal" >แก้ไข</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteFaculty(item.faculty_id)">ลบ</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มข้อมูลคณะ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="addFacultyForm">
+                                  <div class="form-group">
+                                    <label>ชื่อคณะ</label>
+                                    <input class="form-control"formControlName="faculty_name" type="text" id="faculty_name">
+                                  </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button  (click)="addFaculty()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลคณะ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="editFacultyForm">
+                                  <div class="form-group">
+                                    <label>รหัสคณะ</label>
+                                    <input class="form-control"formControlName="faculty_id" type="text" id="faculty_id">
+                                    <label>ชื่อคณะ</label>
+                                    <input class="form-control"formControlName="faculty_name" type="text" id="faculty_name">
+                                  </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button  (click)="editFaculty()" type="submit" class="btn btn-primary" data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

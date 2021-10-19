@@ -12,6 +12,7 @@ const insertRegisterEvent = async (doc = {}) => {
   return { msg: "insert success" };
 };
 
+// Event
 const getEventList = async () => {
   const sql = "SELECT * from event_tb inner join location_tb on event_tb.location_id = location_tb.location_id ORDER BY event_id ASC";
   const result = await myData.query(sql);
@@ -37,42 +38,202 @@ const deleteEvent = async (data) => {
   return result.rows;
 };
 
+// Faculty
+const getFaculty = async () => {
+  const sql = "SELECT * FROM faculty_tb ORDER BY faculty_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const postFaculty = async (data) => {
+  const sql = `INSERT INTO faculty_tb(faculty_id, faculty_name) VALUES (default, '${data.faculty_name}');`
+  await myData.query(sql);
+  return { msg: "insert success" };
+};
+
+const updateFaculty = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE faculty_tb SET faculty_id=${data.faculty_id}, faculty_name='${data.faculty_name}' WHERE faculty_id=${data.faculty_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteFaculty = async (data) => {
+  const sql = `DELETE FROM faculty_tb
+	WHERE faculty_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+// Major
+const getMajor = async () => {
+  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const postMajor = async (data) => {
+  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  await myData.query(sql);
+  return { msg: "insert success" };
+};
+
+const updateMajor = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteMajor = async (data) => {
+  const sql = `DELETE FROM major_tb
+	WHERE major_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+// Location
 const getLocation = async () => {
   const sql = "SELECT * from location_tb ORDER BY location_id ASC";
   const result = await myData.query(sql);
   return result.rows;
 };
 
-const getMajor = async () => {
-  const sql = "SELECT * FROM major_tb";
-  const result = await myData.query(sql);
-  return result.rows;
-};
-
-const getFaculty = async () => {
-  const sql = "SELECT * FROM faculty_tb";
-  const result = await myData.query(sql);
-  return result.rows;
-};
-
-const insertFaculty = async (doc = {}) => {
-  const insertDoc = { ...doc };
-  await myData.query(
-    `INSERT INTO public.faculty_tb(
-      faculty_id, faculty_name)
-      VALUES (default, '${insertDoc.facultyName}');`
-  );
+const postLocation = async (data) => {
+  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  await myData.query(sql);
   return { msg: "insert success" };
 };
+
+const updateLocation = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteLocation = async (data) => {
+  const sql = `DELETE FROM major_tb
+	WHERE major_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+// Question
+const getQuestion = async () => {
+  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const postQuestion = async (data) => {
+  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  await myData.query(sql);
+  return { msg: "insert success" };
+};
+
+const updateQuestion = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteQuestion = async (data) => {
+  const sql = `DELETE FROM major_tb
+	WHERE major_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+// Answer
+const getAnswer = async () => {
+  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const postAnswer = async (data) => {
+  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  await myData.query(sql);
+  return { msg: "insert success" };
+};
+
+const updateAnswer = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteAnswer = async (data) => {
+  const sql = `DELETE FROM major_tb
+	WHERE major_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+// Reg_event
+const getRegEvent = async () => {
+  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const postRegEvent = async (data) => {
+  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  await myData.query(sql);
+  return { msg: "insert success" };
+};
+
+const updateRegEvent = async (data) => {
+  console.log('model -->',data)
+  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const deleteRegEvent = async (data) => {
+  const sql = `DELETE FROM major_tb
+	WHERE major_id=${data};`;
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+
+
+
+
+
 
 module.exports = {
   insertRegisterEvent,
   getEventList,
   getMajor,
   getFaculty,
-  insertFaculty,
+  postFaculty,
   updateEvent,
   deleteEvent,
   addEvent,
-  getLocation
+  getLocation,
+  updateFaculty,
+  deleteFaculty,
+  postMajor,
+  updateMajor,
+  deleteMajor,
+  postLocation,
+  updateLocation,
+  deleteLocation,
+  getQuestion,
+  postQuestion,
+  updateQuestion,
+  deleteQuestion,
+  getAnswer,
+  postAnswer,
+  updateAnswer,
+  deleteAnswer,
+  getRegEvent,
+  postRegEvent,
+  updateRegEvent,
+  deleteRegEvent
 };

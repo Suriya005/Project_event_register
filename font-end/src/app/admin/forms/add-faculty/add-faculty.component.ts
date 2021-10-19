@@ -25,7 +25,7 @@ export class AddFacultyComponent implements OnInit {
   }
 
   getData(): void {
-    this.eventService.getFaculy().then((res: any) => {
+    this.eventService.getFaculty().then((res: any) => {
       this.facultyList = res;
       console.log(res);
     });
@@ -42,7 +42,7 @@ export class AddFacultyComponent implements OnInit {
     });
 
     if (f === true) {
-      this.eventService.postFaculy(this.addFaculty.value).then((res: any) => {
+      this.eventService.postFaculty(this.addFaculty.value).then((res: any) => {
         Swal.fire({
           icon: 'success',
           title: 'เพิ่มข้อมูลสำเร็จ',

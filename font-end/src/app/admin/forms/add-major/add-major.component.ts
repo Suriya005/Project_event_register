@@ -20,7 +20,7 @@ export class AddMajorComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.eventService.getFaculy().then((res:any)=>{
+    this.eventService.getFaculty().then((res:any)=>{
       this.majorList = res;
       console.log(res);
     })

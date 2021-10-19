@@ -9,7 +9,7 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  // ข้อมูลกิจกรรม
+  // --------Event---------------
   getEvent(){
     return this.http.get(environment.serverUrl + `/event`).toPromise();
   }
@@ -28,21 +28,36 @@ export class EventService {
       body: data
    }).toPromise();
   }
-
-  getFaculy(){
-    return this.http.get(environment.serverUrl + `/get/faculty`)
+// -----------Faculty----------------
+  getFaculty(){
+    return this.http.get(environment.serverUrl + `/faculty`)
     .toPromise();
   }
 
+  postFaculty(data:any){
+    console.log(data);
+    return this.http.post(environment.serverUrl + `/faculty`,data).toPromise();
+  }
+
+  editFaculty(data:any){
+    return this.http.patch(environment.serverUrl + `/faculty`,data).toPromise();
+  }
+
+  deleteFaculty(data:any){
+    return this.http.delete(environment.serverUrl + `/faculty`, {
+      body: data
+   }).toPromise();
+  }
+// -----------Major------------------
   getMajor(){
-    return this.http.get(environment.serverUrl + `/get/major`)
+    return this.http.get(environment.serverUrl + `/major`)
     .toPromise();
   }
 
-  postFaculy(data:any){
-    return this.http.post(environment.serverUrl + `/post/faculty`,data)
-    .toPromise();
-  }
+  // postFaculy(data:any){
+  //   return this.http.post(environment.serverUrl + `/post/faculty`,data)
+  //   .toPromise();
+  // }
 
   getLocation(){
     return this.http.get(environment.serverUrl + `/location`)
