@@ -36,6 +36,7 @@ export class EditLocationComponent implements OnInit {
       console.log(res);
       this.locationData = res
     })
+    
   }
 
   editModal(data: any){
@@ -74,6 +75,9 @@ export class EditLocationComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.latitudeOn = position.coords.latitude
       this.longitudeOn = position.coords.longitude
+      this.addLocationForm.controls['latitude'].setValue(this.latitudeOn)
+      this.addLocationForm.controls['longitude'].setValue(this.longitudeOn)
+      console.log('openmap',this.latitudeOn)
       let map = new longdo.Map({
         placeholder: document.getElementById('map'),
         zoom: 18,

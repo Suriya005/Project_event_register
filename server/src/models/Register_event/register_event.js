@@ -109,14 +109,14 @@ const postLocation = async (data) => {
 
 const updateLocation = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const sql = `UPDATE location_tb SET location_id=${data.location_id}, location_name='${data.location_name}' WHERE location_id=${data.location_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const deleteLocation = async (data) => {
-  const sql = `DELETE FROM major_tb
-	WHERE major_id=${data};`;
+  const sql = `DELETE FROM location_tb
+	WHERE location_id=${data};`;
   const result = await myData.query(sql);
   return result.rows;
 };
