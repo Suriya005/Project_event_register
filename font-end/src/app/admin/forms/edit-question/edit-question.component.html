@@ -1,1 +1,227 @@
-<p>edit-question works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-2">
+            <h1>แก้ไขข้อมูลตำแหน่งกิจกรรม</h1>
+        </div>
+
+        <div class="col m-2">
+            <button type="button" class="btn btn-success" data-toggle="modal"
+                data-target="#addModal" (click)="addModal()">เพิ่มข้อมูลคำถาม</button>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <table class="table" border="1px solid #000">
+                <thead class="thead-inverse">
+                    <tr align="center">
+                        <th>รหัสคำถาม</th>
+                        <th>ชื่อกิจกรรม</th>
+                        <th>สถานะคำถาม</th>
+                        <th>เวลาเริ่ม</th>
+                        <th>เวลาสิ้นสุด</th>
+                        <th >คำถาม</th>
+                        <th>แก้ไข</th>
+                        <th>ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of questionData">
+                        <td>{{item.question_id}}</td>
+                        <td>{{item.event_name}}</td>
+                        <td>{{item.question_status}}</td>
+                        <td>{{item.question_start}}</td>
+                        <td>{{item.question_end}}</td>
+                        <td style="word-break: break-all">{{item.question}}</td>
+                        <td><button class="btn btn-warning" (click)="editModal(item)" data-toggle="modal"
+                                data-target="#editModal">แก้ไข</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteQuestion(item.question_id)">ลบ</button></td>
+                        
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="modal fade bd-example-modal-xl" id="addModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มข้อมูลคำถาม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="addQuestionForm">
+                                <div class="form-group">
+                                    <label>กิจกรรม</label>
+                                    <select class="custom-select" formControlName="event_id">
+                                        <option *ngFor="let items of eventData" [ngValue]="items.event_id">
+                                            {{ items.event_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>สถานะคำถาม</label>
+                                    <input class="form-control" formControlName="question_status" type="text"
+                                        id="question_status">
+                                </div>
+                                <div class="form-group">
+                                    <label>เวลาเริ่ม</label>
+                                    <input class="form-control" formControlName="question_start" type="datetime-local"
+                                        id="question_start">
+                                </div>
+                                <div class="form-group">
+                                    <label>เวลาสิ้นสุด</label>
+                                    <input class="form-control" formControlName="question_end" type="datetime-local"
+                                        id="question_end">
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ข้อที่</th>
+                                            <th>คำถาม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of eventQuestion; let i = index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{item}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>คำถามข้อที่ {{this.eventQuestion.length+1}}</label>
+                                            <input class="form-control" id="createQuestion" type="text" formControlName="createQuestion" placeholder=""/>
+                                        </div>
+                                        <div class="col d-flex justify-content-center">
+                                            <button class="btn btn-primary m-2" (click)="onCreateQuestion()">เพิ่มข้อ</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>เลือกข้อที่ต้องการแก้ไข</label>
+                                            <input class="form-control" id="questionNum" type="text" formControlName="questionNum" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>คำถาม</label>
+                                            <input class="form-control" id="questionName" type="text" formControlName="questionName"
+                                                placeholder="questionName" />
+                                        </div>
+                                        <div class="col d-flex justify-content-center">
+                                            <button class="btn btn-primary m-2" (click)="onAdd()">แก้ไข</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button (click)="addQuestion()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขข้อมูลตำแหน่งกิจกรรม</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 m-auto">
+                            <form [formGroup]="editQuestionForm">
+                                <div class="form-group">
+                                    <label>รหัสคำถาม</label>
+                                    <input class="form-control" formControlName="question_id" type="text"
+                                        id="question_id">
+                                </div>
+                                <div class="form-group">
+                                    <label>กิจกรรม</label>
+                                    <select class="custom-select" formControlName="event_id">
+                                        <option *ngFor="let items of eventData" [ngValue]="items.event_id">
+                                            {{ items.event_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>สถานะคำถาม</label>
+                                    <input class="form-control" formControlName="question_status" type="text"
+                                        id="question_status">
+                                </div>
+                                <div class="form-group">
+                                    <label>เวลาเริ่ม</label>
+                                    <input class="form-control" formControlName="question_start" type="datetime-local"
+                                        id="question_start">
+                                </div>
+                                <div class="form-group">
+                                    <label>เวลาสิ้นสุด</label>
+                                    <input class="form-control" formControlName="question_end" type="datetime-local"
+                                        id="question_end">
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ข้อที่</th>
+                                            <th>คำถาม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of eventQuestion; let i = index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{item}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>คำถามข้อที่ {{this.eventQuestion.length+1}}</label>
+                                            <input class="form-control" id="createQuestion" type="text" formControlName="createQuestion" placeholder=""/>
+                                        </div>
+                                        <div class="col d-flex justify-content-center">
+                                            <button class="btn btn-primary m-2" (click)="onCreateQuestionEdit()">เพิ่มข้อ</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>เลือกข้อที่ต้องการแก้ไข</label>
+                                            <input class="form-control" id="questionNum" type="text" formControlName="questionNum" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>คำถาม</label>
+                                            <input class="form-control" id="questionName" type="text" formControlName="questionName"
+                                                placeholder="questionName" />
+                                        </div>
+                                        <div class="col d-flex justify-content-center">
+                                            <button class="btn btn-primary m-2" (click)="onEdit()">แก้ไข</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button (click)="editQuestion()" type="submit" class="btn btn-primary"
+                            data-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

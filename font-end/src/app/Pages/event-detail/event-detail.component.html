@@ -4,21 +4,24 @@
       <span>รายละเอียดกิจกรรม</span>
     </div>
     <div class="content">
-      <div class="eventName">
-        <span>กิจกรรม : รับน้องปี64</span>
+      <div class="eventDate row mb-0">
+        <div class="eventName">
+          <span style="font-size:1.2rem">กิจกรรม : {{this.eventClientDecode.event_name}}</span>
+        </div>
+        <div>
+          <span>{{this.eventClientDecode.event_start| thaidate:'full'}}</span>
+        </div>
+        <div>
+          <span>เวลา {{this.eventClientDecode.event_start|date:"HH:mm"}}</span>
+        </div>
+        
+          <div style="padding-top:0.5rem">
+            <span >รายละเอียดกิจกรรมมีดังนี้</span>
+          </div>
+        
+        <div class="textDetail" [innerHTML]="this.eventClientDecode.event_descr" style="border:solid 1px #000"></div>
       </div>
-      <div class="eventDate">
-        <div class="eventDay">
-          <span>วันที่ 1</span>
-        </div>
-        <div class="eventMonth">
-          <span>เดือน สิงหาคม</span>
-        </div>
-        <div class="eventYear">
-          <span>พ.ศ. 2564</span>
-        </div>
-      </div>
-      <div class="textDetail"></div>
+      
       <div class="eventMenu">
         <div class="items">
           <i class="fas fa-user-check"></i>
@@ -30,9 +33,7 @@
         </div>
       </div>
       <div class="backMenu">
-        <a (click)="back()"
-          ><i class="fas fa-chevron-circle-left"></i
-          ><span>กลับไปเลือกกิจกรรม</span>
+        <a (click)="back()"><i class="fas fa-chevron-circle-left"></i><span>กลับไปเลือกกิจกรรม</span>
         </a>
       </div>
     </div>

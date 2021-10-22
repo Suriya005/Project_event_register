@@ -65,6 +65,10 @@ const userRoutes = (app) => {
    app.patch("/reg_event", controllers.reg_event.updateRegEvent);
    app.delete("/reg_event", controllers.reg_event.deleteRegEvent);
 
+  //  user service
+
+  app.post('/user/event', controllers.user_reg.getEventById)
+
   
  
   app.post("/verify_token", controllers.pg_users.verifyToken);

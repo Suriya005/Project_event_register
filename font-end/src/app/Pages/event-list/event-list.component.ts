@@ -21,8 +21,7 @@ export class EventListComponent implements OnInit {
   }
 
   goEventDetail(eventData:any) {
-    console.log(eventData.event_name);
-    localStorage.setItem('eventData',eventData)
+    localStorage.setItem('eventData',JSON.stringify(eventData))
     this._router.navigate(['/event-detail']);
   }
 

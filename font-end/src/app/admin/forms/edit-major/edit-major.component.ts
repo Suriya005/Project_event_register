@@ -68,5 +68,6 @@ export class EditMajorComponent implements OnInit {
       window.location.reload()
     })
   }
+  
 
 }

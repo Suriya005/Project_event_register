@@ -19,7 +19,7 @@
       .title {
         text-align: center;
         margin-top: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 0rem;
         span {
           border-bottom: 1px solid;
           font-size: 2.5rem;
@@ -35,10 +35,14 @@
         }
       }
       .textDetail {
-        background: rgba(145, 146, 146, 0.9);
-        height: 10rem;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
+        padding: 0.5rem;
+        overflow: auto;
+        // background: rgba(145, 146, 146, 0.9);
+        height: 40vh;
+        margin-top: 0.2rem;
+        
+          font-size:0.8rem
+        
       }
       .eventMenu {
         display: flex;

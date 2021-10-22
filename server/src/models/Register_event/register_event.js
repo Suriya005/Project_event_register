@@ -123,27 +123,28 @@ const deleteLocation = async (data) => {
 
 // Question
 const getQuestion = async () => {
-  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const sql = "SELECT * FROM question_tb inner join event_tb on event_tb.event_id = question_tb.event_id ORDER BY question_id ASC";
   const result = await myData.query(sql);
+  console.log(result.rows)
   return result.rows;
 };
 
 const postQuestion = async (data) => {
-  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  const sql = `INSERT INTO question_tb(question_id, event_id, question_status, question_start, question_end, question) VALUES (default, ${data.event_id}, '${data.question_status}', '${data.question_start}', '${data.question_end}', ARRAY['${data.question.join("','")}']);`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateQuestion = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const sql = `UPDATE question_tb SET question_id=${data.question_id}, event_id=${data.event_id}, question_status='${data.question_status}', question_start='${data.question_start}', question_end='${data.question_end}', question= ARRAY['${data.question.join("','")}'] WHERE question_id=${data.question_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const deleteQuestion = async (data) => {
-  const sql = `DELETE FROM major_tb
-	WHERE major_id=${data};`;
+  const sql = `DELETE FROM question_tb
+	WHERE question_id=${data};`;
   const result = await myData.query(sql);
   return result.rows;
 };
