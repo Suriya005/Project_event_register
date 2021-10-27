@@ -109,7 +109,7 @@ const postLocation = async (data) => {
 
 const updateLocation = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE location_tb SET location_id=${data.location_id}, location_name='${data.location_name}' WHERE location_id=${data.location_old_id};`;
+  const sql = `UPDATE location_tb SET location_id=${data.location_id}, location_name='${data.location_name}', latitude='${data.latitude}', longitude='${data.longitude}' WHERE location_id=${data.location_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
@@ -178,27 +178,28 @@ const deleteAnswer = async (data) => {
 
 // Reg_event
 const getRegEvent = async () => {
-  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const sql = `SELECT event_register_tb.event_id, event_register_tb.user_id, event_register_tb.status_event, encode(event_register_tb.image_event, 'escape') as image_event, event_register_tb.reg_time, event_tb.event_name  from ((event_register_tb inner join users_tb on event_register_tb.user_id = users_tb.user_id) inner join event_tb on event_register_tb.event_id = event_tb.event_id)`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const postRegEvent = async (data) => {
-  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  const sql = `INSERT INTO event_register_tb(event_id, user_id, status_event, image_event, reg_time) VALUES (${data.event_id}, '${data.user_id}', '${data.status_event}', '${data.image_event}', '${data.reg_time}');`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateRegEvent = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const sql = `UPDATE event_register_tb SET user_id='${data.user_id}', event_id=${data.event_id}, status_event='${data.status_event}', image_event='${data.image_event}', reg_time='${data.reg_time}'  WHERE user_id='${data.old_user_id}' and event_id=${data.event_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const deleteRegEvent = async (data) => {
-  const sql = `DELETE FROM major_tb
-	WHERE major_id=${data};`;
+  console.log('data-->',data.event_id)
+  const sql = `DELETE FROM event_register_tb
+	WHERE event_id=${data.event_id} and user_id='${data.user_id}';`;
   const result = await myData.query(sql);
   return result.rows;
 };

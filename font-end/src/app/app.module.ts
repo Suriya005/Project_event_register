@@ -20,7 +20,8 @@ import { GoogleMapApisComponent } from './test/google-map-apis/google-map-apis.c
 import { EventRegListComponent } from './Pages/event-reg-list/event-reg-list.component';
 import { EventFeedbackListComponent } from './Pages/event-feedback-list/event-feedback-list.component';
 import { UserSettingComponent } from './Pages/user-setting/user-setting.component';
-import { ThaiDatePipe } from './pipe/thaidate.pipe'
+import { ThaiDatePipe } from './pipe/thaidate.pipe';
+import { EventFeedbackComponent } from './Pages/event-feedback/event-feedback.component'
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ThaiDatePipe } from './pipe/thaidate.pipe'
     EventFeedbackListComponent,
     UserSettingComponent,
     ThaiDatePipe,
+    EventFeedbackComponent,
   ],
   imports: [
     BrowserModule,

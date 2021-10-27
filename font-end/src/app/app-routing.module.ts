@@ -12,6 +12,7 @@ import { GoogleMapApisComponent } from './test/google-map-apis/google-map-apis.c
 import { EventRegListComponent } from './Pages/event-reg-list/event-reg-list.component';
 import { UserSettingComponent } from './Pages/user-setting/user-setting.component';
 import { EventFeedbackListComponent } from './Pages/event-feedback-list/event-feedback-list.component';
+import { EventFeedbackComponent } from './Pages/event-feedback/event-feedback.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'event-reg-list',
     component: EventRegListComponent,
+  },
+  {
+    path: 'event-feedback',
+    component: EventFeedbackComponent,
   },
   {
     path: 'event-feedback-list',

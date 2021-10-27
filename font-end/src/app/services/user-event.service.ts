@@ -12,5 +12,14 @@ export class UserEventService {
   getEventByEventId(data: any){
     return this.http.post(environment.serverUrl + `/user/event`,data).toPromise();
   }
+  
+  userRegisterEvent(data: any){
+    return this.http.post(environment.serverUrl + `/user/register_event`,data).toPromise();
+  }
+  
+
+  userGetQuestionById(data: any){
+    return this.http.post(environment.serverUrl + `/user/feedback`,data).toPromise();
+  }
 
 }

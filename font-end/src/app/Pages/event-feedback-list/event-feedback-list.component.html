@@ -4,7 +4,7 @@
         <span class="header">รายชื่อกิจกรรม</span>
       </div>
       <div class="content" *ngFor="let items of this.eventList">
-        <button *ngIf="items.event_status ==='A'" class="items" (click)="testSubmit()">
+        <button *ngIf="items.event_status ==='A'" class="items" (click)="onSubmit()">
           <span class="header">{{items.event_name}} </span>
         </button>
       </div>

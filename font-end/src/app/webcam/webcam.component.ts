@@ -8,7 +8,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class WebcamComponent implements OnInit {
   @Output() getPicture = new EventEmitter<WebcamImage>();
-  showWebcam = true;
+  showWebcam = false;
   isCameraExist = true;
   image_base64:any
 
@@ -19,7 +19,7 @@ export class WebcamComponent implements OnInit {
   private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
 
   constructor() { }
- 
+  btnSnapshot:boolean = false;
   
   
 
@@ -49,8 +49,6 @@ export class WebcamComponent implements OnInit {
 
   handleImage(webcamImage: WebcamImage) {
     this.getPicture.emit(webcamImage);
-    // this.image_base64 = webcamImage
-    // console.log(this.image_base64.imageAsBase64);
     this.showWebcam = false;
   }
 

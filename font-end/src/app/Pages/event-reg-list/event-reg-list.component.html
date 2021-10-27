@@ -4,7 +4,7 @@
         <span class="header">เลือกกิจกรรที่ต้องการลงทะเบียน</span>
       </div>
       <div class="content" *ngFor="let items of this.eventList">
-        <button *ngIf="items.event_status ==='A'" class="items" (click)="testSubmit()">
+        <button *ngIf="items.event_status ==='A'" class="items" (click)="goEventReg(items)">
           <span class="header">{{items.event_name}} </span>
         </button>
       </div>
