@@ -19,7 +19,21 @@ export class UserEventService {
   
 
   userGetQuestionById(data: any){
+    return this.http.post(environment.serverUrl + `/user/question`,data).toPromise();
+  }
+
+  addAnswer(data: any){
     return this.http.post(environment.serverUrl + `/user/feedback`,data).toPromise();
   }
+
+  checkEvent(data: any){
+    return this.http.post(environment.serverUrl + `/user/check_event`,data).toPromise();
+  }
+  
+  checkAnswer(data: any){
+    return this.http.post(environment.serverUrl + `/user/check_answer`,data).toPromise();
+  }
+
+  
 
 }

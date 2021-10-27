@@ -20,7 +20,7 @@
                         <td>{{ item.user_id }}</td>
                         <td>{{ item.event_name }}</td>
                         <td>{{ item.status_event }}</td>
-                        <td>{{ item.reg_time }}</td>
+                        <td>{{ item.reg_time |date:"วันที่ dd/MM/YYYY เวลา HH:mm" }}</td>
                         <td>
                             <button class="btn btn-warning" data-toggle="modal" data-target="#editModal"
                                 (click)="editModal(item)">

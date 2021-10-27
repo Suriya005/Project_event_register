@@ -14,7 +14,7 @@ const insertRegisterEvent = async (doc = {}) => {
 
 // Event
 const getEventList = async () => {
-  const sql = "SELECT * from event_tb inner join location_tb on event_tb.location_id = location_tb.location_id ORDER BY event_id ASC";
+  const sql = "SELECT * from ((event_tb inner join location_tb on event_tb.location_id = location_tb.location_id) inner join question_tb on event_tb.event_id = question_tb.event_id) ORDER BY event_tb.event_id ASC";
   const result = await myData.query(sql);
   return result.rows;
 };
@@ -151,27 +151,28 @@ const deleteQuestion = async (data) => {
 
 // Answer
 const getAnswer = async () => {
-  const sql = "SELECT * FROM major_tb ORDER BY major_id ASC";
+  const sql = `SELECT * FROM ((answer_tb inner join question_tb ON answer_tb.question_id = question_tb.question_id) inner join event_tb ON question_tb.event_id = event_tb.event_id) ORDER BY question_tb.question_id ASC`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const postAnswer = async (data) => {
-  const sql = `INSERT INTO major_tb(major_id, major_name) VALUES (default, '${data.major_name}');`
+  console.log(data);
+  const sql = `INSERT INTO public.answer_tb(question_id, user_id, feedback, answer_status, answer_time) VALUES (${data.question_id}, '${data.user_id}', '${data.feedback}', '${data.answer_status}', '${data.answer_time}');`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateAnswer = async (data) => {
   console.log('model -->',data)
-  const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}' WHERE major_id=${data.major_old_id};`;
+  const sql = `UPDATE public.answer_tb SET question_id=${data.question_id}, user_id='${data.user_id}', answer=ARRAY['${data.answer.join("','")}'], feedback='${data.feedback}', answer_status='${data.answer_status}', answer_time='${data.answer_time}' WHERE question_id=${data.old_question_id} and user_id='${data.old_user_id}';`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const deleteAnswer = async (data) => {
-  const sql = `DELETE FROM major_tb
-	WHERE major_id=${data};`;
+  console.log(data)
+  const sql = `DELETE FROM answer_tb WHERE question_id=${data.question_id} and user_id='${data.user_id}'`;
   const result = await myData.query(sql);
   return result.rows;
 };

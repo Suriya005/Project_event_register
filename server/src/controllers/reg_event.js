@@ -37,7 +37,6 @@ const postFaculty = async (req, res) => {
 };
 
 const updateFaculty = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateFaculty(body);
   res.send(result);
@@ -45,7 +44,6 @@ const updateFaculty = async (req, res) => {
 
 const deleteFaculty = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteFaculty(body);
   res.send(result);
 };
@@ -63,7 +61,6 @@ const postMajor = async (req, res) => {
 };
 
 const updateMajor = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateMajor(body);
   res.send(result);
@@ -71,7 +68,6 @@ const updateMajor = async (req, res) => {
 
 const deleteMajor = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteMajor(body);
   res.send(result);
 };
@@ -89,7 +85,6 @@ const postLocation = async (req, res) => {
 };
 
 const updateLocation = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateLocation(body);
   res.send(result);
@@ -97,7 +92,6 @@ const updateLocation = async (req, res) => {
 
 const deleteLocation = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteLocation(body);
   res.send(result);
 };
@@ -115,7 +109,6 @@ const postQuestion = async (req, res) => {
 };
 
 const updateQuestion = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateQuestion(body);
   res.send(result);
@@ -123,7 +116,6 @@ const updateQuestion = async (req, res) => {
 
 const deleteQuestion = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteQuestion(body);
   res.send(result);
 };
@@ -141,7 +133,6 @@ const postAnswer = async (req, res) => {
 };
 
 const updateAnswer = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateAnswer(body);
   res.send(result);
@@ -149,7 +140,6 @@ const updateAnswer = async (req, res) => {
 
 const deleteAnswer = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteAnswer(body);
   res.send(result);
 };
@@ -167,7 +157,6 @@ const postRegEvent = async (req, res) => {
 };
 
 const updateRegEvent = async (req, res) => {
-  console.log("body -->",req.body);
   const { body } = req;
   const result = await RegisterEventModels.updateRegEvent(body);
   res.send(result);
@@ -175,7 +164,6 @@ const updateRegEvent = async (req, res) => {
 
 const deleteRegEvent = async (req, res) => {
   const { body } = req;
-  console.log("body -->",req.body);
   const result = await RegisterEventModels.deleteRegEvent(body);
   res.send(result);
 };

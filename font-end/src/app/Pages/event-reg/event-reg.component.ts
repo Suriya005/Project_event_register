@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { WebcamImage } from 'ngx-webcam';
 import { UserEventService } from 'src/app/services/user-event.service';
+import Swal from 'sweetalert2';
 declare let longdo: any;
 
 @Component({
@@ -62,6 +63,11 @@ export class EventRegComponent implements OnInit {
       }else{
         console.log(distance)
         console.log(false);
+          Swal.fire({
+            title: 'ตำแหน่งของคุณไม่ถูกต้อง!',
+            text: 'กรุณาอยู่ในรัศมีของกิจกรรมที่ระบุไว้ในแผนที่',
+            icon: 'warning',
+          })
       }
       let map = new longdo.Map({
         placeholder: document.getElementById('map'),

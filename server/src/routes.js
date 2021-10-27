@@ -71,7 +71,12 @@ const userRoutes = (app) => {
 
   app.post('/user/register_event', controllers.user_reg.userRegisterEvent)
 
-  app.post('/user/feedback', controllers.user_reg.userGetQuestionById)
+  app.post('/user/question', controllers.user_reg.userGetQuestionById)
+
+  app.post('/user/feedback', controllers.user_reg.addAnswer)
+  app.post('/user/check_event', controllers.user_reg.checkRegisterEvent)
+  app.post('/user/check_answer', controllers.user_reg.checkAnswer)
+  
 
   
  

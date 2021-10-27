@@ -34,4 +34,12 @@ export class EventDetailComponent implements OnInit {
   back() {
     this._router.navigate(['/event-list']);
   }
+
+  takeRegisterEvent() {
+    this._router.navigate(['event-reg'])
+  }
+
+  takeAsnwer() {
+    this._router.navigate(['event-feedback'])
+  }
 }

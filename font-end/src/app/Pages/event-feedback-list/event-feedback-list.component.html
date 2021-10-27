@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
       <div class="title">
-        <span class="header">รายชื่อกิจกรรม</span>
+        <span class="header">เลือกิจกรรมที่ต้องการประเมิน</span>
       </div>
       <div class="content" *ngFor="let items of this.eventList">
-        <button *ngIf="items.event_status ==='A'" class="items" (click)="onSubmit()">
+        <button *ngIf="items.event_status ==='A'" class="items" (click)="takeAsnwer(items)">
           <span class="header">{{items.event_name}} </span>
         </button>
       </div>
