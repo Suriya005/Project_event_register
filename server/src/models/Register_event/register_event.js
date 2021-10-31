@@ -14,7 +14,13 @@ const insertRegisterEvent = async (doc = {}) => {
 
 // Event
 const getEventList = async () => {
-  const sql = "SELECT * from ((event_tb inner join location_tb on event_tb.location_id = location_tb.location_id) inner join question_tb on event_tb.event_id = question_tb.event_id) ORDER BY event_tb.event_id ASC";
+  const sql = `SELECT * from ((event_tb inner join location_tb on event_tb.location_id = location_tb.location_id) inner join question_tb on event_tb.event_id = question_tb.event_id) ORDER BY event_tb.event_id ASC`
+  const result = await myData.query(sql);
+  return result.rows;
+};
+
+const getEventListAdmin = async () => {
+  const sql = `SELECT * from event_tb`
   const result = await myData.query(sql);
   return result.rows;
 };
@@ -205,6 +211,28 @@ const deleteRegEvent = async (data) => {
   return result.rows;
 };
 
+// Report
+
+
+const eventReport = async (data) => {
+  console.log('data-->',data)
+  // ข้อมูลการลงทะเบียนของกิจกรรมที่เลือกไว้ทั้งหมด
+  const sql = `SELECT * FROM (event_register_tb inner join event_tb on event_tb.event_id = event_register_tb.event_id) where event_tb.event_id = ${data}`;
+
+  // จำนวนการลงทะเบียนของผู้ใช้ทั้งหมด
+  const sql2 =`SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
+
+  const result = await myData.query(sql);
+  return result.rows;
+};
+const answerReport = async (data) => {
+  console.log('data-->',data)
+  const sql = `SELECT * FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) where event_tb.event_id = ${data} order by event_tb.event_id`;
+  const result = await myData.query(sql);
+  console.log(result.rows)
+  return result.rows;
+};
+
 
 
 
@@ -240,5 +268,8 @@ module.exports = {
   getRegEvent,
   postRegEvent,
   updateRegEvent,
-  deleteRegEvent
+  deleteRegEvent,
+  getEventListAdmin,
+  eventReport,
+  answerReport
 };

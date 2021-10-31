@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EditQuestionComponent implements OnInit {
 
-  constructor(private service: EventService) { }
+  constructor(private service: EventService , private _router: Router) { }
 
   addQuestionForm = new FormGroup({
     question_id: new FormControl(''),
@@ -45,7 +46,7 @@ export class EditQuestionComponent implements OnInit {
       this.questionData = res;
       console.log(res);
     })
-    this.service.getEvent().then((res: any)=>{
+    this.service.getEventAdmin().then((res: any)=>{
       this.eventData = res;
       console.log(this.eventData);
     })

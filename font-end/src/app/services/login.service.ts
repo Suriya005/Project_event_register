@@ -37,7 +37,7 @@ export class LoginService {
 
   deleteUser(data: any) {
     console.log(data)
-    return this.http.delete(environment.serverUrl + `/users?event=${data}`).toPromise();
+    return this.http.delete(environment.serverUrl + `/users/${data}`).toPromise();
   }
   updateUser(data: any) {
     return this.http.patch(environment.serverUrl + `/users`, {

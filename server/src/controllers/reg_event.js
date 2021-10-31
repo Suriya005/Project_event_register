@@ -6,6 +6,11 @@ const getEventList = async (req, res) => {
   res.send(result);
 };
 
+const getEventListAdmin = async (req, res) => {
+  const result = await RegisterEventModels.getEventListAdmin();
+  res.send(result);
+};
+
 const addEvent = async (req, res) => {
   const { body } = req;
   const result = await RegisterEventModels.addEvent(body);
@@ -175,6 +180,19 @@ const InsertRegisterEvent = async (req, res) => {
   res.send(result);
 };
 
+// Report
+const eventReport = async (req, res) => {
+  const { body } = req;
+  const result = await RegisterEventModels.eventReport(body);
+  res.send(result);
+};
+
+const answerReport = async (req, res) => {
+  const { body } = req;
+  const result = await RegisterEventModels.answerReport(body);
+  res.send(result);
+};
+
 module.exports = {
   InsertRegisterEvent,
   getEventList,
@@ -204,5 +222,8 @@ module.exports = {
   getRegEvent,
   postRegEvent,
   updateRegEvent,
-  deleteRegEvent
+  deleteRegEvent,
+  getEventListAdmin,
+  eventReport,
+  answerReport
 };

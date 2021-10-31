@@ -22,7 +22,8 @@ import { EventFeedbackListComponent } from './Pages/event-feedback-list/event-fe
 import { UserSettingComponent } from './Pages/user-setting/user-setting.component';
 import { ThaiDatePipe } from './pipe/thaidate.pipe';
 import { EventFeedbackComponent } from './Pages/event-feedback/event-feedback.component'
-
+import { ChartModule } from 'angular2-chartjs';
+import 'chart.piecelabel.js';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { EventFeedbackComponent } from './Pages/event-feedback/event-feedback.co
     CKEditorModule,
     FormsModule,
     WebcamModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent],

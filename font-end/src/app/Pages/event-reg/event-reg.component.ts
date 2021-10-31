@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { WebcamImage } from 'ngx-webcam';
 import { UserEventService } from 'src/app/services/user-event.service';
 import Swal from 'sweetalert2';
@@ -15,7 +16,7 @@ export class EventRegComponent implements OnInit {
   public model = {
     editorData: '<p>Hello, world!</p>',
   };
-  constructor(private service: UserEventService) {}
+  constructor(private service: UserEventService, private _router: Router) {}
   imageData: any;
   checkLocation: any = false;
   eventData: any = localStorage.getItem('eventData')
@@ -113,8 +114,13 @@ export class EventRegComponent implements OnInit {
   }
   registerEvent(){
     this.service.userRegisterEvent(this.requireData).then((result: any) => {
-      console.log(result);
+      Swal.fire({
+        title: 'ลงทะเบียนสำเร็จ',
+        icon: 'success',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._router.navigate(['home'])
+        }})
     });
-    console.log(this.requireData)
   }
 }

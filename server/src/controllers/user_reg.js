@@ -36,6 +36,28 @@ const getEventById = async (req, res) => {
     res.send(result);
   }
 
+  const getUserById = async (req, res) => {
+    const { body } = req;
+    const result = await userRegModel.getUserById(body);
+    res.send(result);
+  }
+
+  const checkRegisterByUser = async (req, res) => {
+    const { body } = req;
+    const result = await userRegModel.checkRegisterByUser(body);
+    res.send(result);
+  }
+
+  const checkAnswerByUser = async (req, res) => {
+    const { body } = req;
+    const result = await userRegModel.checkAnswerByUser(body);
+    res.send(result);
+  }
+
+  
+
+  
+
   
 
 module.exports = {
@@ -44,6 +66,9 @@ module.exports = {
     userGetQuestionById,
     addAnswer,
     checkRegisterEvent,
-    checkAnswer
+    checkAnswer,
+    getUserById,
+    checkRegisterByUser,
+    checkAnswerByUser
 
 }

@@ -20,11 +20,12 @@ const userRoutes = (app) => {
   app.get("/pgusers/:userId", { preHandler: [hooks.auth.validateToken] },controllers.pg_users.getUserById);
   app.post("/reg", controllers.pg_users.postUser);
   app.patch("/users", controllers.pg_users.updateUser);
-  app.delete("/users", controllers.pg_users.deleteUser);
+  app.delete("/users/:user_id", controllers.pg_users.deleteUser);
   app.post("/login", controllers.pg_users.postUserLogin);
 
   // Event
   app.get("/event",controllers.reg_event.getEventList);
+  app.get("/event/admin",controllers.reg_event.getEventListAdmin);
   app.post("/event", controllers.reg_event.addEvent);
   app.patch("/event", controllers.reg_event.updateEvent);
   app.delete("/event", controllers.reg_event.deleteEvent);
@@ -76,8 +77,17 @@ const userRoutes = (app) => {
   app.post('/user/feedback', controllers.user_reg.addAnswer)
   app.post('/user/check_event', controllers.user_reg.checkRegisterEvent)
   app.post('/user/check_answer', controllers.user_reg.checkAnswer)
+  app.post('/user/user', controllers.user_reg.getUserById)
+  app.post('/user/report_event', controllers.user_reg.checkRegisterByUser)
+  app.post('/user/report_answer', controllers.user_reg.checkAnswerByUser)
+
+  
+  app.post('/admin/report_event', controllers.reg_event.eventReport)
+  app.post('/admin/report_answer', controllers.reg_event.answerReport)
+  
   
 
+  
   
  
   app.post("/verify_token", controllers.pg_users.verifyToken);

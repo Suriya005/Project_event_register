@@ -43,9 +43,8 @@ const postUserLogin = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  console.log(req.body)
-  const userId = req.body;
-  console.log(userId)
+  console.log('params--->',req.params.user_id)
+  const userId = req.params.user_id;
   const result = await userModels.deleteUser(userId);
   res.send(result);
 };

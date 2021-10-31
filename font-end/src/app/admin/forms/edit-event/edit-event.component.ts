@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -8,7 +9,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit-event.component.scss'],
 })
 export class EditEventComponent implements OnInit {
-  constructor(private eventService: EventService) {}
+
+  constructor(private eventService: EventService,   private _router: Router) {}
 
   addEventForm = new FormGroup({
     event_id: new FormControl(''),
@@ -34,7 +36,10 @@ export class EditEventComponent implements OnInit {
   locationData: any;
 
   ngOnInit(): void {
-    this.getEvent();
+    this.eventService.getEventAdmin().then((res: any) => {
+      console.log(res)
+      this.eventData = res;
+    });
     this.eventService.getLocation().then((res: any)=>{
       this.locationData = res
     })
@@ -50,11 +55,11 @@ export class EditEventComponent implements OnInit {
     this.editEventForm.controls['event_end'].setValue(data.event_end);
   }
 
-  getEvent() {
-    this.eventService.getEvent().then((res: any) => {
-      this.eventData = res;
-    });
-  }
+  // getEvent() {
+  //   this.eventService.getEvent().then((res: any) => {
+  //     this.eventData = res;
+  //   });
+  // }
 
   addEvent() {
     
@@ -62,9 +67,11 @@ export class EditEventComponent implements OnInit {
       Swal.fire({
         title: 'ลบสำเร็จ!',
         icon: 'success',
-        timer: 2000,
-      });
-      window.location.reload();
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+          // this._router.navigate(['admin/edit_event'])
+        }})
     })
   }
 
@@ -73,11 +80,11 @@ export class EditEventComponent implements OnInit {
       Swal.fire({
         title: 'ลบสำเร็จ!',
         icon: 'success',
-        timer: 2000,
-      });
-      setTimeout(() => {
-        window.location.reload();
-      },2000)
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // this._router.navigate(['admin/edit_event'])
+          window.location.reload()
+        }})
     })
   }
 
@@ -97,10 +104,14 @@ export class EditEventComponent implements OnInit {
           Swal.fire({
             title: 'ลบสำเร็จ!',
             icon: 'success',
-            timer: 2000,
-          });
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // this._router.navigate(['admin/edit_event'])
+              window.location.reload()
+            }})
+          
         });
-        window.location.reload();
+        
       }
     });
   }

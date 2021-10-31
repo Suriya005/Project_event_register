@@ -15,6 +15,7 @@ import { EditMajorComponent } from './forms/edit-major/edit-major.component';
 import { EditLocationComponent } from './forms/edit-location/edit-location.component';
 import { EditQuestionComponent } from './forms/edit-question/edit-question.component';
 import { EditRegEventComponent } from './forms/edit-reg-event/edit-reg-event.component';
+import { EventComponent } from './report/event/event.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       { path: 'edit_location', component: EditLocationComponent },
       { path: 'edit_question', component: EditQuestionComponent },
       { path: 'edit_reg_event', component: EditRegEventComponent },
+      { path: 'report_event', component: EventComponent },
     ],
   },
 ];

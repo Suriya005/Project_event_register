@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
+    "angular2-chartjs": "^0.5.1",
+    "chart.piecelabel.js": "^0.15.0",
     "ckeditor4-angular": "^2.2.2",
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",

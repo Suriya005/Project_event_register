@@ -14,6 +14,10 @@ export class EventService {
     return this.http.get(environment.serverUrl + `/event`).toPromise();
   }
 
+  getEventAdmin(){
+    return this.http.get(environment.serverUrl + `/event/admin`).toPromise();
+  }
+
   postEvent(data:any){
     console.log(data);
     return this.http.post(environment.serverUrl + `/event`,data).toPromise();
@@ -153,7 +157,15 @@ export class EventService {
    }).toPromise();
   }
 
+// Report 
 
+  getEventReport(data:any){
+    return this.http.post(environment.serverUrl + `/admin/report_event`,data).toPromise();
+  }
+
+  getAnswerReport(data:any){
+    return this.http.post(environment.serverUrl + `/admin/report_answer`,data).toPromise();
+  }
   
 
 

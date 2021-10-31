@@ -8,7 +8,7 @@ const getUsers = async () => {
   const sql = `SELECT users_tb.user_id, users_tb.password, users_tb.user_status, users_tb.title_name, users_tb.fname, users_tb.lname, users_tb.sex, users_tb.birthday, major_tb.major_id, major_tb.major_name, faculty_tb.faculty_name
   FROM ((users_tb
   INNER JOIN major_tb ON users_tb.major_id = major_tb.major_id)
-  INNER JOIN faculty_tb ON major_tb.faculty_id = faculty_tb.faculty_id);`
+  INNER JOIN faculty_tb ON major_tb.faculty_id = faculty_tb.faculty_id) order by users_tb.user_id;`
   const users = await myData.query(sql);
   return users.rows;
 };
@@ -17,7 +17,7 @@ const getUsersOnChange = async (data) => {
   const sql = `SELECT users_tb.user_id, users_tb.password, users_tb.user_status, users_tb.title_name, users_tb.fname, users_tb.lname, users_tb.sex, users_tb.birthday, major_tb.major_id, major_tb.major_name, faculty_tb.faculty_name
   FROM ((users_tb
   INNER JOIN major_tb ON users_tb.major_id = major_tb.major_id)
-  INNER JOIN faculty_tb ON major_tb.faculty_id = faculty_tb.faculty_id) where user_id LIKE '%${data}%' OR fname LIKE '%${data}%' OR lname LIKE '%${data}%' OR major_name LIKE '%${data}%' OR faculty_name LIKE '%${data}%';`
+  INNER JOIN faculty_tb ON major_tb.faculty_id = faculty_tb.faculty_id) where user_id LIKE '%${data}%' OR fname LIKE '%${data}%' OR lname LIKE '%${data}%' OR major_name LIKE '%${data}%' OR faculty_name LIKE '%${data}%' order by users_tb.user_id;`
   const users = await myData.query(sql);
   return users.rows;
 };
@@ -58,6 +58,7 @@ return { msg: "update success" };
 
 // ฟังก์ชั่นลบ user
 const deleteUser = async (userId)=> {
+  console.log('ID-->',userId);
   const sql = `DELETE FROM users_tb WHERE user_id='${userId}';`
   await myData.query(sql);
   return { msg: "delete success" };

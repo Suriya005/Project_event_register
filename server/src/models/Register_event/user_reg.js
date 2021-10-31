@@ -33,8 +33,8 @@ const checkRegisterEvent = async (data) => {
     console.log("data-->", data);
     const sql = `SELECT status_event FROM event_register_tb where event_id=${data.event_id} and  user_id='${data.user_id}';`;
     const result = await myData.query(sql);
-    console.log(result.rows);
-    if (result.rows[0].status_event == "A") {
+    console.log(result.rowCount);
+    if (result.rowCount > 0) {
       return { eventStatus: false };
     } else {
       return { eventStatus: true };
@@ -49,8 +49,8 @@ const checkAnswer = async (data) => {
     console.log("data-->", data);
     const sql = `SELECT answer_status FROM answer_tb where question_id=${data.question_id} and  user_id='${data.user_id}';`;
     const result = await myData.query(sql);
-    console.log(result.rows[0].answer_status);
-    if (result.rows[0].answer_status == "A") {
+    console.log(result.rowCount);
+    if (result.rowCount > 0) {
       return { eventStatus: true };
     } else {
       return { eventStatus: false };
@@ -60,6 +60,29 @@ const checkAnswer = async (data) => {
   }
 };
 
+const getUserById = async (data) => {
+  console.log("data-->", data);
+  const sql = `SELECT * FROM (users_tb inner join major_tb on users_tb.major_id = users_tb.major_id inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id) where user_id='${data}'`;
+  const result = await myData.query(sql);
+  return result.rows[0];
+}
+
+const checkRegisterByUser = async (data) => {
+  console.log("data-->", data);
+  const sql = `SELECT * FROM (event_register_tb inner join event_tb on event_tb.event_id = event_register_tb.event_id) where user_id = '${data}' order by event_tb.event_id`
+  const result = await myData.query(sql);
+  return result.rows;
+}
+
+const checkAnswerByUser = async (data) => {
+  console.log("data-->", data);
+  const sql = `SELECT * FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) where answer_tb.user_id = '${data}' order by event_tb.event_id`
+  const result = await myData.query(sql);
+  return result.rows;
+}
+
+
+
 module.exports = {
   getEvent,
   userRegisterEvent,
@@ -67,4 +90,7 @@ module.exports = {
   addAnswer,
   checkRegisterEvent,
   checkAnswer,
+  getUserById,
+  checkRegisterByUser,
+  checkAnswerByUser
 };

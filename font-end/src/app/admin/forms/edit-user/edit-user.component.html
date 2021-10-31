@@ -4,6 +4,9 @@
             <h1>แก้ไขข้อมูลผู้ใช้</h1>
             <p>{{this.searchData}}</p>
         </div>
+        <div class="col">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">เพิ่มข้อมูลผู้ใช้</button>
+        </div>
         <div class="col-12">
             <div class="input-group input-group-md">
                 <input [(ngModel)]="searchData" (keyup)="changeSearch()" id="searchData" name="searchData"
@@ -52,7 +55,7 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">เพิ่มข้อมูลผู้ใช้</button>
+        
 
         <!-- Register Modal -->
         <div class="modal fade bd-example-modal-lg" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"

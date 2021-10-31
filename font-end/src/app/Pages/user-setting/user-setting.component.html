@@ -1,21 +1,63 @@
-
 <div class="container">
-    <div class="row">
-      <div class="title">
-        <span class="header">ข้อมูลผู้ใช้</span>
+  <div class="row">
+    <div class="title">
+      <span class="header">ข้อมูลผู้ใช้</span>
+    </div>
+    <div class="content col-12">
+        <div class="col-12">
+          <div>
+            <span>ชื่อ {{userData.title_name}}{{userData.fname+" "+userData.lname}}</span>
+          </div>
+          <div>
+            <span>รหัสนิสิต {{userData.user_id}}</span>
+          </div>
+          <div>
+            <span>สาขา {{userData.major_name}}</span>
+          </div>
+          <div>
+            <span>คณะ {{userData.faculty_name}}</span>
+          </div>
+        </div>
+      <div class="col-12 mt-3">
+        <span class="">รายงานการลงทะเบียนกิจกรรม</span>
+        <table class="table mt-2">
+          <thead>
+            <tr>
+              <th>ชื่อกิจกรรม</th>
+              <th>การเข้าร่วม</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of registerData">
+              <td>{{item.event_name}}</td>
+              <td>{{item.status_event == "A"? "ผ่าน":"ไม่ผ่าน"}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="content">
-        
-          <span>ชื่อ นายสุริยา พุฒดวง</span>
-          <span>รหัสนิสิต 6108111005</span>
-          <span>สาขา วิทยาการคอมพิวเตอร์</span>
-          <span>คณะ บริหารธุรกิจและรัฐประศาสนศาสตร์</span>
-        
-        
+
+      <div class="col-12 mt-3">
+        <span class="">รายงานการตอบแบบประเมินกิจกรรม</span>
+        <table class="table mt-2">
+          <thead>
+            <tr>
+              <th>ชื่อกิจกรรม</th>
+              <th>การเข้าร่วม</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of answerData">
+              <td>{{item.event_name}}</td>
+              <td>{{item.answer_status == "A"? "ผ่าน":"ไม่ผ่าน"}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="backMenu">
-          <a href=""><i class="fas fa-chevron-circle-left"></i><span>กลับไปหน้าแรก</span></a>
-      </div>
+
+
+    </div>
+    <div class="backMenu">
+      <a routerLink="/home" routerLinkActive="active"><i class="fas fa-chevron-circle-left"></i><span>กลับไปหน้าแรก</span></a>
     </div>
   </div>
-  
+</div>

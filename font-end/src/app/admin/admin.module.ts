@@ -19,6 +19,7 @@ import { EditMajorComponent } from './forms/edit-major/edit-major.component';
 import { EditFacultyComponent } from './forms/edit-faculty/edit-faculty.component';
 import { EditLocationComponent } from './forms/edit-location/edit-location.component';
 import { EditRegEventComponent } from './forms/edit-reg-event/edit-reg-event.component';
+import { EventComponent } from './report/event/event.component';
 
 
 
@@ -38,7 +39,8 @@ import { EditRegEventComponent } from './forms/edit-reg-event/edit-reg-event.com
     EditMajorComponent,
     EditFacultyComponent,
     EditLocationComponent,
-    EditRegEventComponent
+    EditRegEventComponent,
+    EventComponent
 
   ],
   imports: [

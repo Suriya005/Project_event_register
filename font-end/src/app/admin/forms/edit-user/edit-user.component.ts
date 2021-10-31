@@ -144,7 +144,7 @@ export class EditUserComponent implements OnInit {
   editModal(tmp:any){
     console.log(tmp)
     this.editForm.controls['userId'].setValue(tmp.user_id);
-    this.editForm.controls['userId'].disable();
+    // this.editForm.controls['userId'].disable();
     this.editForm.controls['password'].setValue(tmp.password);
     this.editForm.controls['titleName'].setValue(tmp.title_name);
     this.editForm.controls['fname'].setValue(tmp.fname);

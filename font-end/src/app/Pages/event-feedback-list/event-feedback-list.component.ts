@@ -32,7 +32,7 @@ export class EventFeedbackListComponent implements OnInit {
           icon: 'warning',
         }).then((result) => {
           if (result.isConfirmed) {
-            this._router.navigate(['/event-reg-list']);
+            this._router.navigate(['/event-feedback-list']);
           }
         })
       } else {
