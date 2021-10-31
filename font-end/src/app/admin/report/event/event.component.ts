@@ -33,21 +33,50 @@ export class EventComponent implements OnInit {
   reportModal(data: any) {}
 
   loadChart() {
-    // Chart.defaults.font.size = 16;
-    let count_sex = new Chart('countSex', {
+    let sexChart = new MyChart("sexChart", ["ชาย","หญิง"],[12,20],[
+      'rgba(54, 162, 235, 0.9)',
+      'rgba(255, 99, 132, 0.9)',
+    ])
+    sexChart.createChart()
+
+    let majorChart = new MyChart("majorChart", ["ชาย","หญิง"],[12,20],[
+      'rgba(54, 162, 235, 0.9)',
+      'rgba(255, 99, 132, 0.9)',
+    ])
+    majorChart.createChart()
+
+    let facultyChart = new MyChart("facultyChart", ["ชาย","หญิง"],[12,20],[
+      'rgba(54, 162, 235, 0.9)',
+      'rgba(255, 99, 132, 0.9)',
+    ])
+    facultyChart.createChart()
+  }
+}
+
+class MyChart {
+  private setChartName: string;
+  private setChartLabels: any;
+  private setChartData: any;
+  private setChartColor: any ;
+  
+  constructor(chartName: string, chartLabels:any, chartData:any, chartColor:any) {
+    this.setChartName = chartName;
+    this.setChartLabels = chartLabels;
+    this.setChartData = chartData;
+    this.setChartColor = chartColor;
+  }
+
+  createChart(){
+    new Chart(`${this.setChartName}`, {
       type: 'pie',
       data: {
-        labels: ['ชาย', 'หญิง'],
+        labels: this.setChartLabels,
         datasets: [
           {
             label: '# of Votes',
-            data: [12, 19],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.9)',
-              'rgba(255, 99, 132, 0.9)'
-              
-            ],
-            borderColor: [ 'rgba(54, 162, 235, 1)','rgba(255,99,132,1)'],
+            data: this.setChartData ,
+            backgroundColor: this.setChartColor,
+            borderColor: this.setChartColor,
             borderWidth: 1,
           },
         ],
@@ -64,9 +93,9 @@ export class EventComponent implements OnInit {
         responsive: true,
         legend: {
           position: 'top',
-          labels:{
-            fontSize:20
-          }
+          labels: {
+            fontSize: 20,
+          },
         },
         animation: {
           animateScale: true,
@@ -75,4 +104,5 @@ export class EventComponent implements OnInit {
       },
     });
   }
+
 }

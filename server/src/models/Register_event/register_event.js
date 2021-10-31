@@ -228,6 +228,54 @@ const eventReport = async (data) => {
 const answerReport = async (data) => {
   console.log('data-->',data)
   const sql = `SELECT * FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) where event_tb.event_id = ${data} order by event_tb.event_id`;
+
+  // sql main
+  const sql_main =`SELECT answer_tb.answer, users_tb.sex, event_tb.event_name, major_tb.major_name, faculty_tb.faculty_name
+	FROM (answer_tb
+		 inner join question_tb on answer_tb.question_id = question_tb.question_id
+		  inner join event_tb on question_tb.event_id = event_tb.event_id
+		  inner join users_tb on answer_tb.user_id = users_tb.user_id
+		  inner join major_tb on users_tb.major_id = major_tb.major_id
+		  inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+		 ) where answer_tb.question_id = 14 ;`
+
+  // หาเพศ
+  const sql_sex =`SELECT count(users_tb.sex),users_tb.sex
+	FROM (answer_tb
+		 inner join question_tb on answer_tb.question_id = question_tb.question_id
+		  inner join event_tb on question_tb.event_id = event_tb.event_id
+		  inner join users_tb on answer_tb.user_id = users_tb.user_id
+		  inner join major_tb on users_tb.major_id = major_tb.major_id
+		  inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+		 ) where answer_tb.question_id = ${data} GROUP BY users_tb.sex ;`
+
+    //  major
+    const sql_major =`SELECT count(major_tb.major_name),major_tb.major_name
+    FROM (answer_tb
+       inner join question_tb on answer_tb.question_id = question_tb.question_id
+        inner join event_tb on question_tb.event_id = event_tb.event_id
+        inner join users_tb on answer_tb.user_id = users_tb.user_id
+        inner join major_tb on users_tb.major_id = major_tb.major_id
+        inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+       ) where answer_tb.question_id = 14 GROUP BY major_tb.major_name ;`
+    // faculty
+    const sql_faculty = `SELECT count(faculty_tb.faculty_name),faculty_tb.faculty_name
+    FROM (answer_tb
+       inner join question_tb on answer_tb.question_id = question_tb.question_id
+        inner join event_tb on question_tb.event_id = event_tb.event_id
+        inner join users_tb on answer_tb.user_id = users_tb.user_id
+        inner join major_tb on users_tb.major_id = major_tb.major_id
+        inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+       ) where answer_tb.question_id = 14 GROUP BY faculty_tb.faculty_name ;`
+
+      //  หาจำนวนข้อที่ผู้ใช้ตอบในแต่ละ ระดับความพึ่งพอใจ
+      const sql_answer1 =`SELECT count(answer[1]), answer[1]
+      FROM answer_tb
+          where answer_tb.question_id = 14 GROUP BY answer[1] ;`
+
+
+
+
   const result = await myData.query(sql);
   console.log(result.rows)
   return result.rows;
