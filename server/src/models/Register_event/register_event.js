@@ -58,7 +58,7 @@ const postFaculty = async (data) => {
 };
 
 const updateFaculty = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE faculty_tb SET faculty_id=${data.faculty_id}, faculty_name='${data.faculty_name}' WHERE faculty_id=${data.faculty_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
@@ -79,14 +79,14 @@ const getMajor = async () => {
 };
 
 const postMajor = async (data) => {
-  console.log("models--->",data);
+  console.log("models--->", data);
   const sql = `INSERT INTO major_tb(major_id, major_name, faculty_id) VALUES (default, '${data.major_name}', ${data.faculty_id});`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateMajor = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE major_tb SET major_id=${data.major_id}, major_name='${data.major_name}', faculty_id=${data.faculty_id} WHERE major_id=${data.major_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
@@ -107,14 +107,14 @@ const getLocation = async () => {
 };
 
 const postLocation = async (data) => {
-  console.log('----->',data);
+  console.log('----->', data);
   const sql = `INSERT INTO location_tb(location_id, location_name, latitude, longitude) VALUES (default, '${data.location_name}', ${data.latitude}, ${data.longitude});`
   await myData.query(sql);
   return { msg: "insert success" };
 };
 
 const updateLocation = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE location_tb SET location_id=${data.location_id}, location_name='${data.location_name}', latitude='${data.latitude}', longitude='${data.longitude}' WHERE location_id=${data.location_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
@@ -142,7 +142,7 @@ const postQuestion = async (data) => {
 };
 
 const updateQuestion = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE question_tb SET question_id=${data.question_id}, event_id=${data.event_id}, question_status='${data.question_status}', question_start='${data.question_start}', question_end='${data.question_end}', question= ARRAY['${data.question.join("','")}'] WHERE question_id=${data.question_old_id};`;
   const result = await myData.query(sql);
   return result.rows;
@@ -170,7 +170,7 @@ const postAnswer = async (data) => {
 };
 
 const updateAnswer = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE public.answer_tb SET question_id=${data.question_id}, user_id='${data.user_id}', answer=ARRAY['${data.answer.join("','")}'], feedback='${data.feedback}', answer_status='${data.answer_status}', answer_time='${data.answer_time}' WHERE question_id=${data.old_question_id} and user_id='${data.old_user_id}';`;
   const result = await myData.query(sql);
   return result.rows;
@@ -197,14 +197,14 @@ const postRegEvent = async (data) => {
 };
 
 const updateRegEvent = async (data) => {
-  console.log('model -->',data)
+  console.log('model -->', data)
   const sql = `UPDATE event_register_tb SET user_id='${data.user_id}', event_id=${data.event_id}, status_event='${data.status_event}', image_event='${data.image_event}', reg_time='${data.reg_time}'  WHERE user_id='${data.old_user_id}' and event_id=${data.event_id};`;
   const result = await myData.query(sql);
   return result.rows;
 };
 
 const deleteRegEvent = async (data) => {
-  console.log('data-->',data.event_id)
+  console.log('data-->', data.event_id)
   const sql = `DELETE FROM event_register_tb
 	WHERE event_id=${data.event_id} and user_id='${data.user_id}';`;
   const result = await myData.query(sql);
@@ -215,35 +215,73 @@ const deleteRegEvent = async (data) => {
 
 
 const eventReport = async (data) => {
-  console.log('data-->',data)
-  let reportData = {test:"hello world"}
+  console.log('data-->', data)
+  let reportData = {}
   // ข้อมูลการลงทะเบียนของกิจกรรมที่เลือกไว้ทั้งหมด
   const sql = `SELECT * FROM (event_register_tb inner join event_tb on event_tb.event_id = event_register_tb.event_id) where event_tb.event_id = ${data}`;
 
   // จำนวนการลงทะเบียนของผู้ใช้ทั้งหมด
-  const event_count =`SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
-  const answer_count =`SELECT count(answer_tb.answer_status) FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A';`
-  const sex_count =`SELECT count(users_tb.sex), users_tb.sex FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id inner join users_tb on answer_tb.user_id = users_tb.user_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A' group by users_tb.sex`
+  const event_count = `SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
+  const answer_count = `SELECT count(answer_tb.answer_status) FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A';`
+  const sex_count = `SELECT count(users_tb.sex), users_tb.sex FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id inner join users_tb on answer_tb.user_id = users_tb.user_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A' group by users_tb.sex`
+  const major_count = `SELECT count(major_tb.major_name),major_tb.major_name
+    FROM (answer_tb
+       inner join question_tb on answer_tb.question_id = question_tb.question_id
+        inner join event_tb on question_tb.event_id = event_tb.event_id
+        inner join users_tb on answer_tb.user_id = users_tb.user_id
+        inner join major_tb on users_tb.major_id = major_tb.major_id
+        inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+       ) where event_tb.event_id = 15 GROUP BY major_tb.major_name ;`
+  const faculty_count = `SELECT count(faculty_tb.faculty_name),faculty_tb.faculty_name
+  FROM (answer_tb
+     inner join question_tb on answer_tb.question_id = question_tb.question_id
+      inner join event_tb on question_tb.event_id = event_tb.event_id
+      inner join users_tb on answer_tb.user_id = users_tb.user_id
+      inner join major_tb on users_tb.major_id = major_tb.major_id
+      inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
+     ) where answer_tb.question_id = 14 GROUP BY faculty_tb.faculty_name`
+  const question = `SELECT question FROM question_tb where event_id = 15;`
 
 
 
-  reportData.event_count  = await myData.query(event_count).then(result => result.rows[0].count);
-  reportData.answer_count  = await myData.query(answer_count).then(result => result.rows[0].count);
-  reportData.sex_count  = await myData.query(sex_count).then(result => result.rows);
-  
+  reportData.event_count = await myData.query(event_count).then(result => result.rows[0].count);
+  reportData.answer_count = await myData.query(answer_count).then(result => result.rows[0].count);
+  reportData.sex_count = await myData.query(sex_count).then(result => result.rows);
+  reportData.major_count = await myData.query(major_count).then(result => result.rows);
+  reportData.faculty_count = await myData.query(faculty_count).then(result => result.rows);
+  reportData.question = await myData.query(question).then(result => result.rows[0].question);
+  reportData.answerDataReply = []
+
+  for (let i = 1; i <= reportData.question.length; i++) {
+    let answerMemoryDefalut = ['0', '0', '0', '0', '0']
+    let sql_answer1 = `SELECT count(answer_tb.answer[${i}]), answer_tb.answer[${i}]
+    FROM (answer_tb 
+    inner join question_tb on answer_tb.question_id = question_tb.question_id
+       inner join event_tb on question_tb.event_id = event_tb.event_id
+     )
+        where event_tb.event_id = 15 GROUP BY answer_tb.answer[${i}] ;`
+    let countAnswer
+    countAnswer = await myData.query(sql_answer1).then(result => result.rows);
+    for (let i =1; i<= countAnswer.length; i++) {
+      await answerMemoryDefalut.fill(countAnswer[i-1].count, countAnswer[i-1].answer-1, countAnswer[i-1].answer)
+      
+    }
+     reportData.answerDataReply.push(answerMemoryDefalut)
+  }
   console.log(reportData);
 
-  // return result.rows;
+
+  return reportData
 };
 
 
 
 const answerReport = async (data) => {
-  console.log('data-->',data)
+  console.log('data-->', data)
   const sql = `SELECT * FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) where event_tb.event_id = ${data} order by event_tb.event_id`;
 
   // sql main
-  const sql_main =`SELECT answer_tb.answer, users_tb.sex, event_tb.event_name, major_tb.major_name, faculty_tb.faculty_name
+  const sql_main = `SELECT answer_tb.answer, users_tb.sex, event_tb.event_name, major_tb.major_name, faculty_tb.faculty_name
 	FROM (answer_tb
 		 inner join question_tb on answer_tb.question_id = question_tb.question_id
 		  inner join event_tb on question_tb.event_id = event_tb.event_id
@@ -253,7 +291,7 @@ const answerReport = async (data) => {
 		 ) where event_tb.event_id = 15 ;`
 
   // หาเพศ
-  const sql_sex =`SELECT count(users_tb.sex),users_tb.sex
+  const sql_sex = `SELECT count(users_tb.sex),users_tb.sex
 	FROM (answer_tb
 		 inner join question_tb on answer_tb.question_id = question_tb.question_id
 		  inner join event_tb on question_tb.event_id = event_tb.event_id
@@ -262,17 +300,17 @@ const answerReport = async (data) => {
 		  inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
 		 ) where answer_tb.question_id = ${data} GROUP BY users_tb.sex ;`
 
-    //  major
-    const sql_major =`SELECT count(major_tb.major_name),major_tb.major_name
+  //  major
+  const sql_major = `SELECT count(major_tb.major_name),major_tb.major_name
     FROM (answer_tb
        inner join question_tb on answer_tb.question_id = question_tb.question_id
         inner join event_tb on question_tb.event_id = event_tb.event_id
         inner join users_tb on answer_tb.user_id = users_tb.user_id
         inner join major_tb on users_tb.major_id = major_tb.major_id
         inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
-       ) where answer_tb.question_id = 14 GROUP BY major_tb.major_name ;`
-    // faculty
-    const sql_faculty = `SELECT count(faculty_tb.faculty_name),faculty_tb.faculty_name
+       ) where event_tb.event_id = 15 GROUP BY major_tb.major_name ;`
+  // faculty
+  const sql_faculty = `SELECT count(faculty_tb.faculty_name),faculty_tb.faculty_name
     FROM (answer_tb
        inner join question_tb on answer_tb.question_id = question_tb.question_id
         inner join event_tb on question_tb.event_id = event_tb.event_id
@@ -281,8 +319,8 @@ const answerReport = async (data) => {
         inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
        ) where answer_tb.question_id = 14 GROUP BY faculty_tb.faculty_name ;`
 
-      //  หาจำนวนข้อที่ผู้ใช้ตอบในแต่ละ ระดับความพึ่งพอใจ
-      const sql_answer1 =`SELECT count(answer[1]), answer[1]
+  //  หาจำนวนข้อที่ผู้ใช้ตอบในแต่ละ ระดับความพึ่งพอใจ
+  const sql_answer1 = `SELECT count(answer[1]), answer[1]
       FROM answer_tb
           where answer_tb.question_id = 14 GROUP BY answer[1] ;`
 

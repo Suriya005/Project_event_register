@@ -12,25 +12,31 @@ export class EventComponent implements OnInit {
   constructor(private _eventService: EventService) {}
 
   eventData: any;
+  reportData: any
+  
 
   ngOnInit(): void {
     this._eventService.getAnswerReport(1).then((res: any) => {
-      console.log(res);
+      // console.log('getAnswerReport',res);
     });
 
     this._eventService.getEventReport(15).then((res: any) => {
-      console.log(res);
+      console.log('getEventReport',res);
+      this.reportData = res
     });
 
     this._eventService.getEventAdmin().then((res: any) => {
-      console.log(res);
+      // console.log('getEventAdmin',res);
       this.eventData = res;
     });
-
     this.loadChart();
   }
 
   reportModal(data: any) {}
+
+  setChart(){
+    
+  }
 
   loadChart() {
     let sexChart = new MyChart("sexChart", ["ชาย","หญิง"],[12,20],[
