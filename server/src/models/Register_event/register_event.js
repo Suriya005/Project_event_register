@@ -216,15 +216,28 @@ const deleteRegEvent = async (data) => {
 
 const eventReport = async (data) => {
   console.log('data-->',data)
+  let reportData = {test:"hello world"}
   // ข้อมูลการลงทะเบียนของกิจกรรมที่เลือกไว้ทั้งหมด
   const sql = `SELECT * FROM (event_register_tb inner join event_tb on event_tb.event_id = event_register_tb.event_id) where event_tb.event_id = ${data}`;
 
   // จำนวนการลงทะเบียนของผู้ใช้ทั้งหมด
-  const sql2 =`SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
+  const event_count =`SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
+  const answer_count =`SELECT count(answer_tb.answer_status) FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A';`
+  const sex_count =`SELECT count(users_tb.sex), users_tb.sex FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id inner join users_tb on answer_tb.user_id = users_tb.user_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A' group by users_tb.sex`
 
-  const result = await myData.query(sql);
-  return result.rows;
+
+
+  reportData.event_count  = await myData.query(event_count).then(result => result.rows[0].count);
+  reportData.answer_count  = await myData.query(answer_count).then(result => result.rows[0].count);
+  reportData.sex_count  = await myData.query(sex_count).then(result => result.rows);
+  
+  console.log(reportData);
+
+  // return result.rows;
 };
+
+
+
 const answerReport = async (data) => {
   console.log('data-->',data)
   const sql = `SELECT * FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) where event_tb.event_id = ${data} order by event_tb.event_id`;
@@ -237,7 +250,7 @@ const answerReport = async (data) => {
 		  inner join users_tb on answer_tb.user_id = users_tb.user_id
 		  inner join major_tb on users_tb.major_id = major_tb.major_id
 		  inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
-		 ) where answer_tb.question_id = 14 ;`
+		 ) where event_tb.event_id = 15 ;`
 
   // หาเพศ
   const sql_sex =`SELECT count(users_tb.sex),users_tb.sex
