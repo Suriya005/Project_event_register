@@ -100,6 +100,11 @@ export class EventService {
     .toPromise();
   }
 
+  getQuestionById(data:any){
+    return this.http.post(environment.serverUrl + `/question_by_id`,data)
+    .toPromise();
+  }
+
   postQuestion(data:any){
     console.log(data);
     return this.http.post(environment.serverUrl + `/question`,data).toPromise();

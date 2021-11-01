@@ -50,6 +50,7 @@ const userRoutes = (app) => {
 
    // question
    app.get("/question", controllers.reg_event.getQuestion);
+   app.post("/question_by_id", controllers.reg_event.getQuestionById);
    app.post("/question", controllers.reg_event.postQuestion);
    app.patch("/question", controllers.reg_event.updateQuestion);
    app.delete("/question", controllers.reg_event.deleteQuestion);

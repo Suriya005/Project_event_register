@@ -12,24 +12,23 @@ export class EventComponent implements OnInit {
   constructor(private _eventService: EventService) {}
 
   eventData: any;
-  reportData: any
+  reportData: any 
+  questionData: any;
+
+  avgAnswer: any 
   
 
   ngOnInit(): void {
+
     this._eventService.getAnswerReport(1).then((res: any) => {
       // console.log('getAnswerReport',res);
-    });
-
-    this._eventService.getEventReport(15).then((res: any) => {
-      console.log('getEventReport',res);
-      this.reportData = res
     });
 
     this._eventService.getEventAdmin().then((res: any) => {
       // console.log('getEventAdmin',res);
       this.eventData = res;
     });
-    this.loadChart();
+    this.loadChart(15);
   }
 
   reportModal(data: any) {}
@@ -38,24 +37,36 @@ export class EventComponent implements OnInit {
     
   }
 
-  loadChart() {
-    let sexChart = new MyChart("sexChart", ["ชาย","หญิง"],[12,20],[
+  loadChart(data:any) {
+    console.log('ดกดกดก',data)
+    this._eventService.getQuestionById(data).then((res: any) => {
+      
+      this.questionData = res
+    })
+    this._eventService.getEventReport(data).then((res: any) => {
+      this.reportData = res
+      console.log(this.reportData)
+      this.avgAnswer = Number(this.reportData.answerDataReply[0][2]) + Number(this.reportData.answerDataReply[1][2])
+    
+    let sexChart = new MyChart("sexChart", this.reportData.sexNameArray,this.reportData.sexCountArray,[
       'rgba(54, 162, 235, 0.9)',
       'rgba(255, 99, 132, 0.9)',
     ])
     sexChart.createChart()
 
-    let majorChart = new MyChart("majorChart", ["ชาย","หญิง"],[12,20],[
+    let majorChart = new MyChart("majorChart", this.reportData.majorNameArray,this.reportData.majorCountArray,[
       'rgba(54, 162, 235, 0.9)',
       'rgba(255, 99, 132, 0.9)',
     ])
     majorChart.createChart()
+    majorChart.setFont(12)
 
-    let facultyChart = new MyChart("facultyChart", ["ชาย","หญิง"],[12,20],[
+    let facultyChart = new MyChart("facultyChart", this.reportData.facultyNameArray,this.reportData.facultyCountArray,[
       'rgba(54, 162, 235, 0.9)',
       'rgba(255, 99, 132, 0.9)',
     ])
     facultyChart.createChart()
+  });
   }
 }
 
@@ -64,12 +75,17 @@ class MyChart {
   private setChartLabels: any;
   private setChartData: any;
   private setChartColor: any ;
+  private setFontSize: any = 25
   
   constructor(chartName: string, chartLabels:any, chartData:any, chartColor:any) {
     this.setChartName = chartName;
     this.setChartLabels = chartLabels;
     this.setChartData = chartData;
     this.setChartColor = chartColor;
+  }
+
+  setFont(setFont:any) {
+    this.setFontSize = setFont
   }
 
   createChart(){
@@ -100,12 +116,12 @@ class MyChart {
         legend: {
           position: 'top',
           labels: {
-            fontSize: 20,
+            setFontSize: this.setFontSize,
           },
         },
         animation: {
-          animateScale: true,
-          animateRotate: true,
+          animateScale: false,
+          animateRotate: false,
         },
       },
     });

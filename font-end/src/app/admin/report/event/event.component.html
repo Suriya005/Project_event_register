@@ -14,7 +14,7 @@
                 <tbody>
                     <tr *ngFor="let item of eventData" align="center">
                         <td>{{item.event_name}}</td>
-                        <td><button class="btn btn-success" (click)="reportModal(item)" data-toggle="modal"
+                        <td><button class="btn btn-success" (click)="loadChart(item.event_id)" data-toggle="modal"
                                 data-target="#reportModal">รายงาน</button></td>
                     </tr>
 
@@ -38,7 +38,7 @@
                             <div class="col-6">
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
+                                        <h3>{{this.reportData.event_count}}</h3>
                                         <p>จำนวนนิสิตที่เข้าร่วมกิจกรรม</p>
                                     </div>
                                     <div class="icon">
@@ -49,7 +49,7 @@
                             <div class="col-6">
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
+                                        <h3>{{this.reportData.answer_count}}</h3>
                                         <p>จำนวนนิสิตที่ตอบแบบประเมินกิจกรรม</p>
                                     </div>
                                     <div class="icon">
@@ -157,19 +157,17 @@
                                             <th>ปานกลาง</th>
                                             <th>มาก</th>
                                             <th>มากที่สุด</th>
-                                            <th>คะแนนเฉลี่ย</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>คำถาม</td>
-                                            <td>3</td>
-                                            <td>4</td>
-                                            <td>12</td>
-                                            <td>2</td>
-                                            <td>4</td>
-                                            <td>3.33</td>
+                                        <tr *ngFor="let item of questionData.question let i = index" >
+                                            <td>{{i + 1}}</td>
+                                            <td>{{item}}</td>
+                                            <td>{{reportData.answerDataReply[i][0]}}</td>
+                                            <td>{{reportData.answerDataReply[i][1]}}</td>
+                                            <td>{{reportData.answerDataReply[i][2]}}</td>
+                                            <td>{{reportData.answerDataReply[i][3]}}</td>
+                                            <td>{{reportData.answerDataReply[i][4]}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

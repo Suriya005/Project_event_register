@@ -128,11 +128,20 @@ const deleteLocation = async (data) => {
 };
 
 // Question
+
 const getQuestion = async () => {
   const sql = "SELECT * FROM question_tb inner join event_tb on event_tb.event_id = question_tb.event_id ORDER BY question_id ASC";
   const result = await myData.query(sql);
   console.log(result.rows)
   return result.rows;
+};
+
+const getQuestionById = async (data) => {
+  console.log('test question -->',data)
+  const sql = `SELECT question_tb.question FROM question_tb inner join event_tb on event_tb.event_id = question_tb.event_id where event_tb.event_id = ${data}`
+  const result = await myData.query(sql);
+  console.log('test question -->',result.rows[0])
+  return result.rows[0];
 };
 
 const postQuestion = async (data) => {
@@ -215,15 +224,15 @@ const deleteRegEvent = async (data) => {
 
 
 const eventReport = async (data) => {
-  console.log('data-->', data)
+  console.log('data-dwdw->', data)
   let reportData = {}
   // ข้อมูลการลงทะเบียนของกิจกรรมที่เลือกไว้ทั้งหมด
   const sql = `SELECT * FROM (event_register_tb inner join event_tb on event_tb.event_id = event_register_tb.event_id) where event_tb.event_id = ${data}`;
 
   // จำนวนการลงทะเบียนของผู้ใช้ทั้งหมด
-  const event_count = `SELECT count(status_event) FROM public.event_register_tb where event_id = 15 and status_event = 'A';`
-  const answer_count = `SELECT count(answer_tb.answer_status) FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A';`
-  const sex_count = `SELECT count(users_tb.sex), users_tb.sex FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id inner join users_tb on answer_tb.user_id = users_tb.user_id) WHERE event_tb.event_id = 15 and answer_tb.answer_status = 'A' group by users_tb.sex`
+  const event_count = `SELECT count(status_event) FROM public.event_register_tb where event_id = ${data} and status_event = 'A';`
+  const answer_count = `SELECT count(answer_tb.answer_status) FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id) WHERE event_tb.event_id = ${data} and answer_tb.answer_status = 'A';`
+  const sex_count = `SELECT count(users_tb.sex), users_tb.sex FROM (answer_tb inner join question_tb on answer_tb.question_id = question_tb.question_id inner join event_tb on question_tb.event_id = event_tb.event_id inner join users_tb on answer_tb.user_id = users_tb.user_id) WHERE event_tb.event_id = ${data} and answer_tb.answer_status = 'A' group by users_tb.sex`
   const major_count = `SELECT count(major_tb.major_name),major_tb.major_name
     FROM (answer_tb
        inner join question_tb on answer_tb.question_id = question_tb.question_id
@@ -231,7 +240,7 @@ const eventReport = async (data) => {
         inner join users_tb on answer_tb.user_id = users_tb.user_id
         inner join major_tb on users_tb.major_id = major_tb.major_id
         inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
-       ) where event_tb.event_id = 15 GROUP BY major_tb.major_name ;`
+       ) where event_tb.event_id = ${data} GROUP BY major_tb.major_name ;`
   const faculty_count = `SELECT count(faculty_tb.faculty_name),faculty_tb.faculty_name
   FROM (answer_tb
      inner join question_tb on answer_tb.question_id = question_tb.question_id
@@ -240,7 +249,7 @@ const eventReport = async (data) => {
       inner join major_tb on users_tb.major_id = major_tb.major_id
       inner join faculty_tb on major_tb.faculty_id = faculty_tb.faculty_id
      ) where answer_tb.question_id = 14 GROUP BY faculty_tb.faculty_name`
-  const question = `SELECT question FROM question_tb where event_id = 15;`
+  const question = `SELECT question FROM question_tb where event_id = ${data};`
 
 
 
@@ -251,6 +260,12 @@ const eventReport = async (data) => {
   reportData.faculty_count = await myData.query(faculty_count).then(result => result.rows);
   reportData.question = await myData.query(question).then(result => result.rows[0].question);
   reportData.answerDataReply = []
+  reportData.majorNameArray = [];
+  reportData.majorCountArray = [];
+  reportData.facultyNameArray = [];
+    reportData.facultyCountArray = [];
+    reportData.sexNameArray =[]
+    reportData.sexCountArray =[]
 
   for (let i = 1; i <= reportData.question.length; i++) {
     let answerMemoryDefalut = ['0', '0', '0', '0', '0']
@@ -259,17 +274,35 @@ const eventReport = async (data) => {
     inner join question_tb on answer_tb.question_id = question_tb.question_id
        inner join event_tb on question_tb.event_id = event_tb.event_id
      )
-        where event_tb.event_id = 15 GROUP BY answer_tb.answer[${i}] ;`
+        where event_tb.event_id = ${data} GROUP BY answer_tb.answer[${i}] ;`
     let countAnswer
+    
     countAnswer = await myData.query(sql_answer1).then(result => result.rows);
     for (let i =1; i<= countAnswer.length; i++) {
       await answerMemoryDefalut.fill(countAnswer[i-1].count, countAnswer[i-1].answer-1, countAnswer[i-1].answer)
-      
     }
      reportData.answerDataReply.push(answerMemoryDefalut)
   }
-  console.log(reportData);
 
+  for(let items of reportData.major_count){
+    reportData.majorNameArray.push(items.major_name)
+    reportData.majorCountArray.push(items.count)
+  }
+
+  for(let items of reportData.faculty_count){
+    reportData.facultyNameArray.push(items.faculty_name)
+    reportData.facultyCountArray.push(items.count)
+  }
+
+  for(let items of reportData.sex_count){
+    reportData.sexNameArray.push(items.sex)
+    reportData.sexCountArray.push(items.count)
+  }
+
+
+
+
+  console.log(reportData);
 
   return reportData
 };
@@ -370,5 +403,6 @@ module.exports = {
   deleteRegEvent,
   getEventListAdmin,
   eventReport,
-  answerReport
+  answerReport,
+  getQuestionById
 };

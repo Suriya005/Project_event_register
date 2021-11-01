@@ -107,6 +107,12 @@ const getQuestion = async (req, res) => {
   res.send(result);
 };
 
+const getQuestionById = async (req, res) => {
+  const { body } = req;
+  const result = await RegisterEventModels.getQuestionById(body);
+  res.send(result);
+};
+
 const postQuestion = async (req, res) => {
   const { body } = req;
   const result = await RegisterEventModels.postQuestion(body);
@@ -225,5 +231,6 @@ module.exports = {
   deleteRegEvent,
   getEventListAdmin,
   eventReport,
-  answerReport
+  answerReport,
+  getQuestionById
 };
