@@ -46,6 +46,9 @@ export class LoginService {
   }
 
   verifyToken(token:any){
-    return this.http.post(environment.serverUrl + `/verify_token`,token).toPromise();
+    return this.http.post(environment.serverUrl + `/verify_token`, token, {
+      observe: 'body',
+      headers: new HttpHeaders().set('Authorization', token.toString()),
+    }).toPromise();
   };
 }

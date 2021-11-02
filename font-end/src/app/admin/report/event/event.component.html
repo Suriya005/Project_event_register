@@ -148,9 +148,10 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
+                                <h5>สรุปการตอบแบบประเมินของกิจกรรม</h5>
                                 <table class="table">
                                     <thead>
-                                        <tr>
+                                        <tr align="center">
                                             <th>ข้อที่</th>
                                             <th>คำถาม</th>
                                             <th>น้อยที่สุด</th>
@@ -161,14 +162,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of questionData.question let i = index" >
-                                            <td>{{i + 1}}</td>
-                                            <td>{{item}}</td>
-                                            <td>{{reportData.answerDataReply[i][0]}}</td>
-                                            <td>{{reportData.answerDataReply[i][1]}}</td>
-                                            <td>{{reportData.answerDataReply[i][2]}}</td>
-                                            <td>{{reportData.answerDataReply[i][3]}}</td>
-                                            <td>{{reportData.answerDataReply[i][4]}}</td>
+                                        <tr align="center" *ngFor="let item of questionData.question let i = index" >
+                                            <td width="10%">{{i + 1}}</td>
+                                            <td align="start" width="40%">{{item}}</td>
+                                            <td width="10%">{{reportData.answerDataReply[i][0]}}</td>
+                                            <td width="10%">{{reportData.answerDataReply[i][1]}}</td>
+                                            <td width="10%">{{reportData.answerDataReply[i][2]}}</td>
+                                            <td width="10%">{{reportData.answerDataReply[i][3]}}</td>
+                                            <td width="10%">{{reportData.answerDataReply[i][4]}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
