@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-question',
@@ -72,14 +73,42 @@ export class EditQuestionComponent implements OnInit {
   }
 
   deleteQuestion(data:any){
-    this.service.deleteQuestion(data).then((res: any) => {
-      console.log(res)
-    })
+    Swal.fire({
+      title: 'ลบบัญชี',
+      text: 'คุณต้องการลบบัญชีนี้ ใช่หรือไม่?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช่',
+      cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteQuestion(data).then((res: any) => {
+          Swal.fire({
+            title: 'ลบสำเร็จ!',
+            icon: 'success',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload()
+            }})
+          
+        });
+        
+      }
+    });
   }
   async addQuestion(){
     await this.addQuestionForm.controls['question'].setValue(this.eventQuestion)
     console.log(this.addQuestionForm.value)
     await this.service.postQuestion(this.addQuestionForm.value).then((res: any) => {
+      Swal.fire({
+        title: 'เพิ่มสำเร็จ!',
+        icon: 'success',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+        }})
     })
     
   }
@@ -118,7 +147,13 @@ export class EditQuestionComponent implements OnInit {
     this.editQuestionForm.controls['question'].setValue(this.eventQuestion)
     console.log(this.editQuestionForm.value)
     this.service.editQuestion(this.editQuestionForm.value).then((res: any) => {
-      console.log(res)
+      Swal.fire({
+        title: 'แก้ไขสำเร็จ!',
+        icon: 'success',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+        }})
     })
   }
 

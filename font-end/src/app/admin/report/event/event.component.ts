@@ -11,14 +11,14 @@ declare const Chart: any;
 export class EventComponent implements OnInit {
   constructor(private _eventService: EventService) {}
 
-  eventData: any;
-  reportData: any 
-  questionData: any;
+  eventData: any = []
+  reportData: any  = {}
+  questionData: any = {}
 
-  avgAnswer: any 
   
 
   ngOnInit(): void {
+    
 
     this._eventService.getAnswerReport(1).then((res: any) => {
       // console.log('getAnswerReport',res);
@@ -27,8 +27,10 @@ export class EventComponent implements OnInit {
     this._eventService.getEventAdmin().then((res: any) => {
       // console.log('getEventAdmin',res);
       this.eventData = res;
+      console.log('eventData',this.eventData);
     });
     this.loadChart(15);
+    
   }
 
   reportModal(data: any) {}
@@ -38,15 +40,13 @@ export class EventComponent implements OnInit {
   }
 
   loadChart(data:any) {
-    console.log('ดกดกดก',data)
     this._eventService.getQuestionById(data).then((res: any) => {
-      
       this.questionData = res
+      console.log(this.questionData)
     })
     this._eventService.getEventReport(data).then((res: any) => {
       this.reportData = res
       console.log(this.reportData)
-      this.avgAnswer = Number(this.reportData.answerDataReply[0][2]) + Number(this.reportData.answerDataReply[1][2])
     
     let sexChart = new MyChart("sexChart", this.reportData.sexNameArray,this.reportData.sexCountArray,[
       'rgba(54, 162, 235, 0.9)',
@@ -55,15 +55,24 @@ export class EventComponent implements OnInit {
     sexChart.createChart()
 
     let majorChart = new MyChart("majorChart", this.reportData.majorNameArray,this.reportData.majorCountArray,[
-      'rgba(54, 162, 235, 0.9)',
-      'rgba(255, 99, 132, 0.9)',
+      'rgba(54, 162, 23, 0.9)',
+      'rgba(255, 99, 12, 0.9)',
+      'rgba(0, 255, 255, 0.9)',
+      'rgba(25, 55, 255, 0.9)',
+      'rgba(222, 222, 50, 0.9)',
+      'rgba(222, 99, 222, 0.9)',
+      'rgba(255, 22, 12, 0.9)',
+      
     ])
     majorChart.createChart()
     majorChart.setFont(12)
 
     let facultyChart = new MyChart("facultyChart", this.reportData.facultyNameArray,this.reportData.facultyCountArray,[
-      'rgba(54, 162, 235, 0.9)',
-      'rgba(255, 99, 132, 0.9)',
+      'rgba(0, 255, 255, 0.9)',
+      'rgba(222, 222, 50, 0.9)',
+      'rgba(25, 55, 255, 0.9)',
+      'rgba(255, 22, 12, 0.9)',
+      'rgba(222, 99, 222, 0.9)',
     ])
     facultyChart.createChart()
   });
@@ -111,6 +120,7 @@ class MyChart {
         pieceLabel: {
           mode: 'value%',
           fontSize: 25,
+          fontColor: 'white',
         },
         responsive: true,
         legend: {

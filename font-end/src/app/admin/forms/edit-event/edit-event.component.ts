@@ -65,7 +65,7 @@ export class EditEventComponent implements OnInit {
     
     this.eventService.postEvent(this.addEventForm.value).then((res: any) => {
       Swal.fire({
-        title: 'ลบสำเร็จ!',
+        title: 'เพิ่มสำเร็จ!',
         icon: 'success',
       }).then((result) => {
         if (result.isConfirmed) {
@@ -78,7 +78,7 @@ export class EditEventComponent implements OnInit {
   editEvent() {
     this.eventService.editEvent(this.editEventForm.value).then((res: any) => {
       Swal.fire({
-        title: 'ลบสำเร็จ!',
+        title: 'แก้ไขสำเร็จ!',
         icon: 'success',
       }).then((result) => {
         if (result.isConfirmed) {

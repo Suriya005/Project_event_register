@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EventService } from 'src/app/services/event.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-major',
@@ -50,23 +51,56 @@ export class EditMajorComponent implements OnInit {
   addMajor(){
     console.log(this.addMajorForm.value)
     this.service.postMajor(this.addMajorForm.value).then((res: any) => {
-      console.log(res)
-      window.location.reload()
+      Swal.fire({
+        title: 'เพิ่มสำเร็จ!',
+        icon: 'success',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+        }})
     })
   }
 
   editMajor(){
     this.service.editMajor(this.editMajorForm.value).then((res: any) => {
-      console.log(res)
-      window.location.reload()
+      Swal.fire({
+        title: 'แก้ไขสำเร็จ!',
+        icon: 'success',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+        }})
     })
   }
 
   deleteMajor(data: any){
-    this.service.deleteMajor(data).then((res: any) => {
-      console.log(res)
-      window.location.reload()
-    })
+    Swal.fire({
+      title: 'ลบบัญชี',
+      text: 'คุณต้องการลบบัญชีนี้ ใช่หรือไม่?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช่',
+      cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteMajor(data).then((res: any) => {
+          Swal.fire({
+            title: 'ลบสำเร็จ!',
+            icon: 'success',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload()
+            }})
+          
+        });
+        
+      }
+    });
+
+
+   
   }
   
 

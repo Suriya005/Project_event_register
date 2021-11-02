@@ -190,7 +190,7 @@ const InsertRegisterEvent = async (req, res) => {
 const eventReport = async (req, res) => {
   const { body } = req;
   const result = await RegisterEventModels.eventReport(body);
-  res.send(result);
+  res.send(JSON.stringify(result));
 };
 
 const answerReport = async (req, res) => {

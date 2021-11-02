@@ -20,7 +20,7 @@ const getEventList = async () => {
 };
 
 const getEventListAdmin = async () => {
-  const sql = `SELECT * from event_tb`
+  const sql = `SELECT event_tb.*, location_tb.location_name from event_tb inner join location_tb on event_tb.location_id = location_tb.location_id`
   const result = await myData.query(sql);
   return result.rows;
 };
