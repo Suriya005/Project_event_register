@@ -36,7 +36,7 @@ export class EditEventComponent implements OnInit {
   locationData: any;
 
   ngOnInit(): void {
-    this.eventService.getEventAdmin().then((res: any) => {
+    this.eventService.getEventAdmin(localStorage.getItem('token')).then((res: any) => {
       console.log(res)
       this.eventData = res;
     });
@@ -69,8 +69,10 @@ export class EditEventComponent implements OnInit {
         icon: 'success',
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload()
+          this.addEventForm.reset();
+          // window.location.reload()
           // this._router.navigate(['admin/edit_event'])
+          this.ngOnInit()
         }})
     })
   }
@@ -83,7 +85,8 @@ export class EditEventComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           // this._router.navigate(['admin/edit_event'])
-          window.location.reload()
+          // window.location.reload()
+          this.ngOnInit()
         }})
     })
   }
@@ -107,7 +110,8 @@ export class EditEventComponent implements OnInit {
           }).then((result) => {
             if (result.isConfirmed) {
               // this._router.navigate(['admin/edit_event'])
-              window.location.reload()
+              // window.location.reload()
+              this.ngOnInit()
             }})
           
         });

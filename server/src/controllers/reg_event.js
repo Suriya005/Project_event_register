@@ -13,8 +13,15 @@ const getEventListAdmin = async (req, res) => {
 
 const addEvent = async (req, res) => {
   const { body } = req;
-  const result = await RegisterEventModels.addEvent(body);
-  res.send(result);
+  // const result = await RegisterEventModels.addEvent(body);
+  // reply status code 
+  
+  try {
+    await RegisterEventModels.addEvent(body);
+    res.status(200)
+  } catch (error) {
+    throw error
+  }
 };
 
 const updateEvent = async (req, res) => {
@@ -198,6 +205,8 @@ const answerReport = async (req, res) => {
   const result = await RegisterEventModels.answerReport(body);
   res.send(result);
 };
+
+
 
 module.exports = {
   InsertRegisterEvent,

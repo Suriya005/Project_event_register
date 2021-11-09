@@ -24,10 +24,10 @@ export class EventComponent implements OnInit {
       this.questionData = res
     });
 
-    this._eventService.getEventAdmin().then((res: any) => {
+    this._eventService.getEventAdmin(localStorage.getItem('token')).then((res: any) => {
       // console.log('getEventAdmin',res);
       this.eventData = res;
-      console.log('eventData', this.eventData);
+      // console.log('eventData', this.eventData);
     });
     this.loadChart(15);
 

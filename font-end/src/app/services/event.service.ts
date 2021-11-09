@@ -14,13 +14,18 @@ export class EventService {
     return this.http.get(environment.serverUrl + `/event`).toPromise();
   }
 
-  getEventAdmin(){
-    return this.http.get(environment.serverUrl + `/event/admin`).toPromise();
+  getEventAdmin(token:any){
+    return this.http.get(environment.serverUrl + `/event/admin`,{
+      headers: new HttpHeaders().set('Authorization', token.toString()),
+    }).toPromise();
   }
 
   postEvent(data:any){
     console.log(data);
-    return this.http.post(environment.serverUrl + `/event`,data).toPromise();
+    return this.http.post(environment.serverUrl + `/event`,data,{
+      observe: 'body',
+      headers: new HttpHeaders().set('Authorization', String(localStorage.getItem('token'))),
+    }).toPromise();
   }
 
   editEvent(data:any){

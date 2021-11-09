@@ -47,7 +47,7 @@ export class EditQuestionComponent implements OnInit {
       this.questionData = res;
       console.log(res);
     })
-    this.service.getEventAdmin().then((res: any)=>{
+    this.service.getEventAdmin(localStorage.getItem('token')).then((res: any)=>{
       this.eventData = res;
       console.log(this.eventData);
     })
@@ -90,7 +90,8 @@ export class EditQuestionComponent implements OnInit {
             icon: 'success',
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.reload()
+              // window.location.reload()
+              this.ngOnInit()
             }})
           
         });
@@ -107,7 +108,8 @@ export class EditQuestionComponent implements OnInit {
         icon: 'success',
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload()
+          // window.location.reload()
+          this.ngOnInit()
         }})
     })
     
@@ -152,7 +154,8 @@ export class EditQuestionComponent implements OnInit {
         icon: 'success',
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload()
+          // window.location.reload()
+          this.ngOnInit()
         }})
     })
   }
